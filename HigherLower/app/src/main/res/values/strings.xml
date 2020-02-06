@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Higher Lower</string>
+    <string name="title_task">Guess if the next throw is going to be lower, equal or higher.</string>
+    <string name="msg_last_throw">Last Throw: %d</string>
+    <string name="dice">Dice</string>
+    <string name="action_lower">Lower</string>
+    <string name="action_equals">Equals</string>
+    <string name="action_higher">Higher</string>
+    <string name="correct">Correct</string>
+    <string name="incorrect">Incorrect</string>
+</resources>

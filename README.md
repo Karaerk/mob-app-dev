@@ -4,3 +4,4 @@ Managed by Kerim Karaer.
 ## Overview of all tasks
 * Level 1
   * Example: /PictureQuiz
+  * Task 1: /HigherLower
