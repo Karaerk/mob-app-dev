@@ -5,3 +5,4 @@ Managed by Kerim Karaer.
 * Level 1
   * Example: /PictureQuiz
   * Task 1: /HigherLower
+  * Task 2: /LogicaApp
