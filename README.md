@@ -6,3 +6,5 @@ Managed by Kerim Karaer.
   * Example: /PictureQuiz
   * Task 1: /HigherLower
   * Task 2: /LogicaApp
+* Level 2
+  * Example: /Reminder
