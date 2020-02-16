@@ -8,3 +8,4 @@ Managed by Kerim Karaer.
   * Task 2: /LogicaApp
 * Level 2
   * Example: /Reminder
+  * Task 1: /PlacesOfInterest
