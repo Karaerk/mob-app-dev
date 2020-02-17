@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_default">15dp</dimen>
+    <dimen name="title_default">25sp</dimen>
+    <dimen name="description_default">20sp</dimen>
+    <dimen name="list_item_padding">15dp</dimen>
+</resources>
