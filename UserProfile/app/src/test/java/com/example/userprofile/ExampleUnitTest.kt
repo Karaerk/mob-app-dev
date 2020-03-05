@@ -1,4 +1,4 @@
-package com.wearetriple.userprofile
+package com.example.userprofile
 
 import org.junit.Test
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wearetriple.userprofile">
+    package="com.example.userprofile">
 
     <application
         android:allowBackup="true"
@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".CreateProfileActivity" />
+        <activity android:name="com.example.userprofile.ProfileActivity"></activity>
+        <activity android:name="com.example.userprofile.CreateProfileActivity" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.example.userprofile.SplashActivity"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
