@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">User Profile</string>
+    <string name="btn_open_gallery">Open picture gallery</string>
+    <string name="et_first_name">First Name</string>
+    <string name="et_last_name">Last Name</string>
+    <string name="et_description">Description</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="profile_name">%1$s %2$s</string>
+</resources>

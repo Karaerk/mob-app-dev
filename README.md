@@ -12,3 +12,4 @@ Managed by Kerim Karaer.
   * Task 2: /SwipeQuiz
 * Level 3
   * Example: /ReminderV2
+  * Task 1: /UserProfile
