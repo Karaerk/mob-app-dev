@@ -10,3 +10,5 @@ Managed by Kerim Karaer.
   * Example: /Reminder
   * Task 1: /PlacesOfInterest
   * Task 2: /SwipeQuiz
+* Level 3
+  * Example: /ReminderV2
