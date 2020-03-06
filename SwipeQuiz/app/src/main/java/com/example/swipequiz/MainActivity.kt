@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private val questions = arrayListOf<Question>()
-    private val questionAdapter = QuestionAdapter(questions)
+    private var questionAdapter = QuestionAdapter(questions, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         for (i in Question.questions.indices) {
             questions.add(Question(Question.questions[i], Question.answers[i]))
         }
+
         questionAdapter.notifyDataSetChanged()
 
         createItemTouchHelper().attachToRecyclerView(rvQuestions)
@@ -62,16 +64,14 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.answer_correct),
                         Toast.LENGTH_LONG
                     ).show()
-                    questionAdapter.notifyDataSetChanged()
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
+                    Snackbar.make(
+                        rvQuestions,
                         getString(R.string.answer_incorrect),
-                        Toast.LENGTH_LONG
+                        Snackbar.LENGTH_LONG
                     ).show()
-                    questionAdapter.notifyDataSetChanged()
                 }
-
+                questionAdapter.notifyDataSetChanged()
             }
         }
 
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
      * Removes a question properly so that the application is able to function well after
      * some changes were made.
      */
-    private fun removeQuestion(questionNr: Int){
+    private fun removeQuestion(questionNr: Int) {
         questions.removeAt(questionNr)
 
         // Needed as the RecycleView rearranges the position of each element

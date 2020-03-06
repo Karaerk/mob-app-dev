@@ -2,6 +2,7 @@
     <string name="app_name">SwipeQuiz</string>
     <string name="title_main">Quiz instructions</string>
     <string name="description_main">Swipe right for true, swipe left for false.</string>
-    <string name="answer_incorrect">Answer is not correct</string>
+    <string name="answer_incorrect">Answer is incorrect. The question will not be removed</string>
     <string name="answer_correct">Answer is correct!</string>
+    <string name="correct_answer">The correct answer is %1$s</string>
 </resources>
