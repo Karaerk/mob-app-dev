@@ -13,3 +13,4 @@ Managed by Kerim Karaer.
 * Level 3
   * Example: /ReminderV2
   * Task 1: /UserProfile
+  * Task 2: /StudentPortal

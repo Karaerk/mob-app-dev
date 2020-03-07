@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="default_layout_padding">18dp</dimen>
+    <dimen name="default_btn_padding">4dp</dimen>
+    <dimen name="default_view_margin">16dp</dimen>
+    <dimen name="default_item_margin">8dp</dimen>
+    <dimen name="default_item_padding">8dp</dimen>
+    <dimen name="default_item_spacing">14sp</dimen>
+</resources>
