@@ -7,10 +7,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -26,8 +24,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        portals.add(Portal("test", "http://google.com"))
-        portals.add(Portal("test 2", "http://micrsoft.com"))
+        portals.add(Portal("Roosters", "http://roosters.hva.nl"))
+        portals.add(Portal("Sis", "http://sis.hva.nl"))
+        portals.add(Portal("Hva", "http://hva.nl"))
 
         portalAdapter.notifyDataSetChanged()
 
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         // Initialize the recycler view with a linear layout manager, adapter
         rvPortals.layoutManager =
-            StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+            GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false)
         rvPortals.adapter = portalAdapter
 
         fab.setOnClickListener {
