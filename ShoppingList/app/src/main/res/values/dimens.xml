@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="layout_padding">8dp</dimen>
+    <dimen name="padding_shopping_item">8dp</dimen>
+    <dimen name="text_size_shopping_item">20sp</dimen>
+</resources>
