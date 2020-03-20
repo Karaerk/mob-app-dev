@@ -1,4 +1,4 @@
-package com.example.shoppinglist
+package com.example.shoppinglist.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppinglist.R
+import com.example.shoppinglist.database.ProductRepository
+import com.example.shoppinglist.model.Product
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +22,8 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private val shoppingList = arrayListOf<Product>()
-    private val productAdapter = ProductAdapter(shoppingList)
+    private val productAdapter =
+        ProductAdapter(shoppingList)
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var productRepository: ProductRepository
 
@@ -28,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        productRepository = ProductRepository(this)
+        productRepository =
+            ProductRepository(this)
         initViews()
     }
 
