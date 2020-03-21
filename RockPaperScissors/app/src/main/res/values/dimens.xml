@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_layout">16dp</dimen>
+    <dimen name="padding_vs">16dp</dimen>
+    <dimen name="margin_view">12dp</dimen>
+    <dimen name="margin_image_button">4dp</dimen>
+    <dimen name="margin_result">40dp</dimen>
+    <dimen name="size_image">80dp</dimen>
+</resources>

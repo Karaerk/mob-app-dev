@@ -17,3 +17,4 @@ Managed by Kerim Karaer.
 * Level 4
   * Example: /ReminderV3
   * Task 1: /ShoppingList
+  * Task 2: /RockPaperScissors
