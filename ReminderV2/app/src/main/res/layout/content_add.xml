@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/layout_padding"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AddActivity"
     tools:showIn="@layout/activity_add">
@@ -11,11 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingStart="@dimen/default_padding"
-        android:paddingTop="@dimen/default_padding"
-        android:paddingEnd="@dimen/default_padding"
-        android:paddingBottom="@dimen/default_padding">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvAddReminder"
@@ -29,6 +26,7 @@
             android:id="@+id/textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/til_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.75">
@@ -38,11 +36,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/hint_reminder"
-                android:inputType="text"
-                />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

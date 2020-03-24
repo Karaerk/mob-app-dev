@@ -3,6 +3,7 @@ package com.example.reminder
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add.*
 import kotlinx.android.synthetic.main.content_add.*
@@ -26,7 +27,10 @@ class AddActivity : AppCompatActivity() {
 
     private fun onSaveClick() {
         if (etAddReminder.text.isNullOrBlank()) {
-            etAddReminder.setError("Please fill in text before saving a reminder.")
+            // Allows the app to show an error message right at the edit text view
+            // etAddReminder.setError("Please fill in text before saving a reminder.")
+
+            Toast.makeText(this, "The reminder cannot be empty", Toast.LENGTH_SHORT).show()
         } else {
             val reminder = Reminder(etAddReminder.text.toString())
 
