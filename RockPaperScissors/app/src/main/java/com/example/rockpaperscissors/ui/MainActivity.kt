@@ -65,13 +65,13 @@ class MainActivity : AppCompatActivity() {
     private fun getStatistics() {
         mainScope.launch {
             val countWin = withContext(Dispatchers.IO) {
-                gameRepository.countPlayerWin()
+                gameRepository.countResult(GameResult.PLAYER_WON)
             }
             val countDraw = withContext(Dispatchers.IO) {
-                gameRepository.countDraw()
+                gameRepository.countResult(GameResult.DRAW)
             }
             val countLose = withContext(Dispatchers.IO) {
-                gameRepository.countPlayerLose()
+                gameRepository.countResult(GameResult.COMPUTER_WON)
             }
 
             tvStatsData.text = getString(R.string.data_stats, countWin, countDraw, countLose)

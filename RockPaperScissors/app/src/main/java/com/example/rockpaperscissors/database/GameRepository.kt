@@ -24,9 +24,5 @@ class GameRepository(context: Context) {
 
     suspend fun deleteAllGames() = gameDao.deleteAllGames()
 
-    suspend fun countPlayerLose(): Int = gameDao.countPlayerLose(GameResult.COMPUTER_WON)
-
-    suspend fun countPlayerWin(): Int = gameDao.countPlayerWin(GameResult.PLAYER_WON)
-
-    suspend fun countDraw(): Int = gameDao.countDraw(GameResult.DRAW)
+    suspend fun countResult(gameResult: GameResult): Int = gameDao.countResult(gameResult)
 }

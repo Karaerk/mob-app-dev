@@ -22,12 +22,6 @@ interface GameDao {
     @Query("DELETE FROM game_table")
     suspend fun deleteAllGames()
 
-    @Query("SELECT COUNT(result) FROM game_table WHERE result = :computerWon")
-    suspend fun countPlayerLose(computerWon: GameResult): Int
-
-    @Query("SELECT COUNT(result) FROM game_table WHERE result = :playerWon")
-    suspend fun countPlayerWin(playerWon: GameResult): Int
-
-    @Query("SELECT COUNT(result) FROM game_table WHERE result = :draw")
-    suspend fun countDraw(draw: GameResult): Int
+    @Query("SELECT COUNT(result) FROM game_table WHERE result = :gameResult")
+    suspend fun countResult(gameResult: GameResult): Int
 }
