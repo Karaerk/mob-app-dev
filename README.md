@@ -18,3 +18,5 @@ Managed by Kerim Karaer.
   * Example: /ReminderV3
   * Task 1: /ShoppingList
   * Task 2: /RockPaperScissors
+* Level 5
+  * Example: /ArchitectureComponents
