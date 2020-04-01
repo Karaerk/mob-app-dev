@@ -20,3 +20,4 @@ Managed by Kerim Karaer.
   * Task 2: /RockPaperScissors
 * Level 5
   * Example: /ArchitectureComponents
+  * Task 1: /Notepad
