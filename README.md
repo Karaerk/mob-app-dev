@@ -21,3 +21,4 @@ Managed by Kerim Karaer.
 * Level 5
   * Example: /ArchitectureComponents
   * Task 1: /Notepad
+  * Task 2: /GameBacklog

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Game Backlog</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_delete_history">Delete history</string>
+    <string name="title_activity_add">Add Activity</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_platform">Platform</string>
+    <string name="hint_day">Day</string>
+    <string name="hint_month">Month</string>
+    <string name="hint_year">Year</string>
+    <string name="text_deleted_backlog">Successfully deleted backlog</string>
+    <string name="text_deleted_game">Successfully deleted game</string>
+</resources>
