@@ -24,3 +24,4 @@ Managed by Kerim Karaer.
   * Task 2: /GameBacklog
 * Level 6
   * Example: /Numbers
+  * Task 1: /AdvancedRecyclerview
