@@ -22,3 +22,5 @@ Managed by Kerim Karaer.
   * Example: /ArchitectureComponents
   * Task 1: /Notepad
   * Task 2: /GameBacklog
+* Level 6
+  * Example: /Numbers
