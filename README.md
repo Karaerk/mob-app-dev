@@ -25,3 +25,4 @@ Managed by Kerim Karaer.
 * Level 6
   * Example: /Numbers
   * Task 1: /AdvancedRecyclerview
+  * Task 2: /MovieList

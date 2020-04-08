@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Movie List</string>
+    <string name="title_input">The most popular movies of</string>
+    <string name="hint_input">Year</string>
+    <string name="title_button">Submit</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="movie_overview">Overview</string>
+    <string name="release_date">Release: %1$s</string>
+</resources>
