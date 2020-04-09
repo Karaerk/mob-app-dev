@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Bottom Navigation</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_home">Home</string>
+    <string name="description_home">This is our home menu!</string>
+    <string name="button_rate">Rate</string>
+    <string name="title_rate">Rate</string>
+    <string name="title_rated">Thank you for rating us!</string>
+    <string name="description_rated">Thank you for rating us with %1$.1f stars</string>
+</resources>

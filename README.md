@@ -28,3 +28,4 @@ Managed by Kerim Karaer.
   * Task 2: /MovieList
 * Level 7
   * Example: /QuizMaker
+  * Task 1: /BottomNavigation
