@@ -29,8 +29,14 @@ class DetailActivity : AppCompatActivity() {
 
     private fun initViews(movie: Movie) {
         val baseUrl = "https://image.tmdb.org/t/p/w500"
-        val backdropImage = baseUrl + movie.backdropImage
-        Glide.with(this).load(backdropImage).into(ivBackdropImage)
+
+        // Make sure to only load a backdrop image if a movie has one
+        if(movie.backdropImage != null) {
+            val backdropImage = baseUrl + movie.backdropImage
+            Glide.with(this).load(backdropImage).into(ivBackdropImage)
+        } else {
+            Glide.with(this).load("https://i.imgur.com/APWeHz1.jpg").into(ivBackdropImage)
+        }
 
         val posterImage = baseUrl + movie.posterImage
         Glide.with(this).load(posterImage).into(ivPosterImage)

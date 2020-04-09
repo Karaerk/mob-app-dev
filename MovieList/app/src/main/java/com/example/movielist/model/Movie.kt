@@ -7,7 +7,7 @@ import java.util.*
 
 @Parcelize
 data class Movie(
-    @SerializedName("backdrop_path") val backdropImage: String,
+    @SerializedName("backdrop_path") val backdropImage: String?,
     @SerializedName("poster_path") val posterImage: String,
     val title: String,
     @SerializedName("release_date") val releaseDate: String,

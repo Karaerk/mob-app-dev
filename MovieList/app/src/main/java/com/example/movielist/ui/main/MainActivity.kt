@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         rvMovies.adapter = movieAdapter
 
         btnSubmit.setOnClickListener {
+            pbMovies.visibility = View.VISIBLE
             val year = etYear.text.toString()
             viewModel.getMostPopularMoviesOfYear(year)
         }
@@ -84,7 +85,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onMovieClick(movie: Movie) {
-        pbMovies.visibility = View.VISIBLE
         viewModel.getMovieDetail(movie)
     }
 }
