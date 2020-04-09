@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Quiz Maker</string>
+    <string name="title_home">Welcome to the Quiz Maker. Please create a question before starting the quiz.</string>
+    <string name="button_create">Create Quiz</string>
+    <string name="button_start">Start Quiz</string>
+    <string name="title_create">Create your quiz here</string>
+    <string name="input_question">Question</string>
+    <string name="input_answer">Answer</string>
+    <string name="button_save">Create</string>
+    <string name="button_confirm">Confirm Answer</string>
+    <string name="create_quiz">Create quiz</string>
+    <string name="quiz">Quiz</string>
+</resources>

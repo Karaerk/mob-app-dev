@@ -26,3 +26,5 @@ Managed by Kerim Karaer.
   * Example: /Numbers
   * Task 1: /AdvancedRecyclerview
   * Task 2: /MovieList
+* Level 7
+  * Example: /QuizMaker
