@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.hvaquest.ui.HomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionFragment"
+        android:name="com.example.hvaquest.ui.question.QuestionFragment"
+        android:label="@string/title_question"
+        tools:layout="@layout/fragment_question">
+        <action
+            android:id="@+id/action_questionFragment_to_locationClueFragment"
+            app:destination="@id/locationClueFragment" />
+        <action
+            android:id="@+id/action_questionFragment_to_completedFragment"
+            app:destination="@id/completedFragment" />
+        <argument
+            android:name="questionNumber"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationClueFragment"
+        android:name="com.example.hvaquest.ui.LocationClueFragment"
+        android:label="@string/title_location_clue"
+        tools:layout="@layout/fragment_location_clue" >
+        <action
+            android:id="@+id/action_locationClueFragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+        <argument
+            android:name="questionNumber"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/completedFragment"
+        android:name="com.example.hvaquest.ui.CompletedFragment"
+        android:label="@string/title_completed"
+        tools:layout="@layout/fragment_completed" >
+        <action
+            android:id="@+id/action_completedFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

@@ -29,3 +29,4 @@ Managed by Kerim Karaer.
 * Level 7
   * Example: /QuizMaker
   * Task 1: /BottomNavigation
+  * Task 2: /HvAQuest
