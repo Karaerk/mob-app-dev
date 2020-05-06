@@ -3,29 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/SignInFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
-        android:id="@+id/SignInFragment"
+        android:id="@+id/signInFragment"
         android:name="com.example.onwork.ui.account.signin.SignInFragment"
         android:label="string/title_sign_in"
         tools:layout="@layout/fragment_sign_in">
 
         <action
             android:id="@+id/action_SignInFragment_to_SignUpFragment"
-            app:destination="@id/SignUpFragment"
+            app:destination="@id/signUpFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in" />
+        <action
+            android:id="@+id/action_signInFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/SignUpFragment"
+        android:id="@+id/signUpFragment"
         android:name="com.example.onwork.ui.account.signout.SignUpFragment"
         android:label="string/title_sign_up"
         tools:layout="@layout/fragment_sign_up">
 
         <action
-            android:id="@+id/action_SignUpFragment_to_SignInFragment"
-            app:destination="@id/SignInFragment"
+            android:id="@+id/action_signUpFragment_to_SignInFragment"
+            app:destination="@id/signInFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.onwork.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_SettingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.onwork.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_DashboardFragment"
+            app:destination="@id/dashboardFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in" />
     </fragment>

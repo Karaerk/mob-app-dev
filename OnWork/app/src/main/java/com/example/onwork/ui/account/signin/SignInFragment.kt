@@ -25,5 +25,9 @@ class SignInFragment : Fragment() {
         btnSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_SignInFragment_to_SignUpFragment)
         }
+
+        btnSignIn.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_dashboardFragment)
+        }
     }
 }
