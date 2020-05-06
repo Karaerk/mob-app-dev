@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "907167823125",
+    "firebase_url": "https://onwork-app.firebaseio.com",
+    "project_id": "onwork-app",
+    "storage_bucket": "onwork-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907167823125:android:a0c1f4df38508d3bca651c",
+        "android_client_info": {
+          "package_name": "com.example.onwork"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907167823125-q3ao6gt86np7ohq1cgqvm4bsederl82u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbJPAzVmDvaRcbvLGTzELCMBZBFfjn_x4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907167823125-q3ao6gt86np7ohq1cgqvm4bsederl82u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

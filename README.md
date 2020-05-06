@@ -30,3 +30,5 @@ Managed by Kerim Karaer.
   * Example: /QuizMaker
   * Task 1: /BottomNavigation
   * Task 2: /HvAQuest
+* Individual assignment
+  * OnWork: /OnWork
