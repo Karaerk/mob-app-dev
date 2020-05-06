@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.error.observe(this, Observer {
+            pbMovies.visibility = View.GONE
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         })
     }
