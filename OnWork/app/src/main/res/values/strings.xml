@@ -8,10 +8,15 @@
     <string name="description_sign_up">Start your experience by creating an account.</string>
     <string name="hint_email">Email address</string>
     <string name="hint_password">Password</string>
+    <string name="hint_new_entry">Working on</string>
     <string name="button_sign_in">Sign in</string>
     <string name="button_create_account">Create an account</string>
 
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_app">AppActivity</string>
+    <string name="title_delete_account">Delete account</string>
+    <string name="description_delete_account">After deleting your account, you won\'t be able to recover your account. So, choose wisely.</string>
+    <string name="button_delete_account">Delete my account</string>
+    <string name="hint_date_format">Date format</string>
 </resources>
