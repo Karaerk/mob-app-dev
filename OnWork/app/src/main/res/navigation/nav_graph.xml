@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_sign_in">
 
         <action
-            android:id="@+id/action_SignInFragment_to_SignUpFragment"
+            android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in" />
@@ -20,9 +20,7 @@
             android:id="@+id/action_signInFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:enterAnim="@android:anim/fade_in"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popUpTo="@id/signInFragment"
-            app:popUpToInclusive="true" />
+            app:popEnterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -35,6 +33,11 @@
             app:destination="@id/signInFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in" />
+        <action
+            android:id="@+id/action_signUpFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in" />
 
     </fragment>
     <fragment
@@ -43,7 +46,7 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard">
         <action
-            android:id="@+id/action_dashboardFragment_to_SettingsFragment"
+            android:id="@+id/action_dashboardFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in" />
@@ -54,8 +57,13 @@
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings">
         <action
-            android:id="@+id/action_settingsFragment_to_DashboardFragment"
+            android:id="@+id/action_settingsFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in" />
+        <action
+            android:id="@+id/action_settingsFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in" />
     </fragment>

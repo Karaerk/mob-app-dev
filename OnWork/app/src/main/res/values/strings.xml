@@ -9,6 +9,8 @@
     <string name="hint_email">Email address</string>
     <string name="hint_password">Password</string>
     <string name="hint_new_entry">Working on</string>
+    <string name="success_sign_in">Authentication successful</string>
+    <string name="error_sign_in">Authentication failed</string>
     <string name="button_sign_in">Sign in</string>
     <string name="button_create_account">Create an account</string>
 
@@ -19,4 +21,11 @@
     <string name="description_delete_account">After deleting your account, you won\'t be able to recover your account. So, choose wisely.</string>
     <string name="button_delete_account">Delete my account</string>
     <string name="hint_date_format">Date format</string>
+    <string name="title_sign_out">Sign out</string>
+    <string name="description_sign_out">Sign out of your account. You can sign in back at anytime.</string>
+    <string name="button_sign_out">Sign out of my account</string>
+    <string name="error_delete_account">User account couldn\'t be deleted. Please try again</string>
+    <string name="error_input_email">Please fill in your email address</string>
+    <string name="error_input_password">Please fill in your password</string>
+    <string name="success_sign_up">Your account is successfully created</string>
 </resources>

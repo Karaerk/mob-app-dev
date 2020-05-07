@@ -8,7 +8,7 @@
     tools:context=".ui.settings.SettingsFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/tilDateFormat"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,12 +18,42 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/filled_exposed_dropdown"
+            android:id="@+id/etDateFormat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="LabelFor" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvTitleSignOut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_space"
+        android:text="@string/title_sign_out"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilDateFormat" />
+
+    <TextView
+        android:id="@+id/tvDescriptionSignOut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/description_sign_out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleSignOut" />
+
+    <Button
+        android:id="@+id/btnSignOut"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_space"
+        android:text="@string/button_sign_out"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescriptionSignOut" />
 
     <TextView
         android:id="@+id/tvTitleDelete"
@@ -34,7 +64,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSignOut" />
 
     <TextView
         android:id="@+id/tvDescriptionDelete"
