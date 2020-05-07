@@ -21,7 +21,7 @@
             app:destination="@id/dashboardFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popUpTo="@id/dashboardFragment"
+            app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

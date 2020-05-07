@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.onwork.R
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -26,5 +27,11 @@ class SettingsFragment : Fragment() {
         button_second.setOnClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_DashboardFragment)
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        (activity as AppCompatActivity?)!!.supportActionBar?.show()
     }
 }
