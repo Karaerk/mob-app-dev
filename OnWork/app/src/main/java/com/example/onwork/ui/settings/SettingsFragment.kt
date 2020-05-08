@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -76,7 +77,7 @@ class SettingsFragment : Fragment() {
         }
 
         btnDeleteAccount.setOnClickListener {
-            settingsViewModel.deleteAccount()
+            prepareDeleteAccount()
         }
     }
 
@@ -113,5 +114,24 @@ class SettingsFragment : Fragment() {
                 activityContext.getString(R.string.error_delete_account),
                 Toast.LENGTH_SHORT
             ).show()
+    }
+
+    /**
+     * Prepares the app to delete the account by first asking the user if he's sure about it.
+     */
+    private fun prepareDeleteAccount() {
+        val builder = AlertDialog.Builder(activityContext)
+
+        builder.setMessage(getString(R.string.confirm_delete_account))
+            .setPositiveButton(getString(R.string.button_delete)) { dialog, _ ->
+                settingsViewModel.deleteAccount()
+            }
+            .setNegativeButton(getString(R.string.button_cancel)) { dialog, _ ->
+                dialog.cancel()
+            }
+
+        val dialog = builder.create()
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.show()
     }
 }
