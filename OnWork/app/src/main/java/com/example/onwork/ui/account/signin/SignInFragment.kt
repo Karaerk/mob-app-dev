@@ -28,6 +28,12 @@ class SignInFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_sign_in, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        signInViewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -42,8 +48,6 @@ class SignInFragment : Fragment() {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        signInViewModel = ViewModelProvider(activityContext).get(SignInViewModel::class.java)
-
         signInViewModel.isSignedIn.observeNonNull(viewLifecycleOwner, this::initAuthorizedUser)
         signInViewModel.success.observeNonNull(viewLifecycleOwner, this::initSuccess)
         signInViewModel.error.observeNonNull(viewLifecycleOwner, this::initErrorAuthentication)

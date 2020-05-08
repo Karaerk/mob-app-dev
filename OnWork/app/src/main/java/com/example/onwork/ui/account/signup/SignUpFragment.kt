@@ -30,6 +30,12 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        signUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
         activityContext = (activity as AppCompatActivity)
         activityContext.supportActionBar?.hide()
 
@@ -41,8 +47,6 @@ class SignUpFragment : Fragment() {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        signUpViewModel = ViewModelProvider(activityContext).get(SignUpViewModel::class.java)
-
         signUpViewModel.isSignedIn.observeNonNull(viewLifecycleOwner, this::initAuthorizedUser)
         signUpViewModel.success.observeNonNull(viewLifecycleOwner, this::initSuccess)
         signUpViewModel.error.observeNonNull(viewLifecycleOwner, this::initErrorAuthentication)

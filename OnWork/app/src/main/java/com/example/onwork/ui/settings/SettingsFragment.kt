@@ -31,6 +31,8 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -47,8 +49,6 @@ class SettingsFragment : Fragment() {
      * Prepares the data needed for this fragment.
      */
     private fun initViewModel() {
-        settingsViewModel = ViewModelProvider(activityContext).get(SettingsViewModel::class.java)
-
         settingsViewModel.deleteAccount.observeNonNull(viewLifecycleOwner, this::initDeleteAccount)
         settingsViewModel.signOut.observeNonNull(viewLifecycleOwner, this::initSignOut)
         settingsViewModel.errorDelete.observeNonNull(viewLifecycleOwner, this::initErrorDelete)
@@ -84,8 +84,15 @@ class SettingsFragment : Fragment() {
      * Prepares to send the deleted user to the sign in view.
      */
     private fun initDeleteAccount(deleted: Boolean) {
-        if (deleted)
+        if (deleted) {
             findNavController().navigate(R.id.action_settingsFragment_to_signInFragment)
+
+            Toast.makeText(
+                activityContext,
+                activityContext.getString(R.string.success_delete_account),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     /**

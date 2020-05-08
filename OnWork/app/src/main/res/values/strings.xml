@@ -28,4 +28,5 @@
     <string name="error_input_email">Please fill in your email address</string>
     <string name="error_input_password">Please fill in your password</string>
     <string name="success_sign_up">Your account is successfully created</string>
+    <string name="success_delete_account">Your account is successfully deleted</string>
 </resources>

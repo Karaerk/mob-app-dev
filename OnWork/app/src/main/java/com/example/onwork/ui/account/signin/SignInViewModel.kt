@@ -14,6 +14,7 @@ class SignInViewModel() : ViewModel() {
     val error = MutableLiveData<Boolean>(false)
 
     init {
+        println(auth.currentUser)
         if(auth.currentUser != null){
             isSignedIn.value = true
         }

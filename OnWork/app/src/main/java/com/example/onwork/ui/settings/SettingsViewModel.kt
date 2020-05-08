@@ -23,14 +23,15 @@ class SettingsViewModel() : ViewModel() {
      */
     fun signOut() {
         auth.signOut()
+        println(auth.currentUser)
         signOut.value = true
-        //TODO: Fix issue where user goes sometimes to dashboard instead of sign in (probably viewmodel related?)
     }
 
     /**
      * Deletes the currently signed in user from the database.
      */
     fun deleteAccount() {
+        //TODO: Show popup first for confirm
         auth.currentUser!!.delete()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
