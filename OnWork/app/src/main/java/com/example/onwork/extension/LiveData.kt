@@ -19,3 +19,11 @@ fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, f: (T) -> Unit) {
 fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, f: () -> Unit) {
     this.observe(owner, Observer<T> { f() })
 }
+
+/**
+ * Also allows the user to pass in a reference to a function, however with this, the function is
+ * able to not require the user to pass in a parameter.
+ */
+fun <T> LiveData<T>.observeNull(owner: LifecycleOwner, f: (T?) -> Unit) {
+    this.observe(owner, Observer<T> { t -> t?.let(f) })
+}

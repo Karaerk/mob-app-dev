@@ -33,6 +33,7 @@
 
     <string name="error_sign_in">Authentication failed</string>
     <string name="error_delete_account">User account couldn\'t be deleted. Please try again</string>
+    <string name="error_update_date_format">Date format couldn\'t be updated. The default one is selected</string>
     <string name="error_input_email">Please fill in your email address</string>
     <string name="error_input_password">Please fill in your password</string>
 
