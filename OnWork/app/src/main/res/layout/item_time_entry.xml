@@ -40,7 +40,7 @@
                 android:text="Design for a new project" />
 
             <LinearLayout
-                android:layout_width="100dp"
+                android:layout_width="@dimen/time_width"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 

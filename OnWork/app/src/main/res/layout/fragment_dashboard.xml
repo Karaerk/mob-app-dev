@@ -30,16 +30,27 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <include
+            android:id="@+id/iOnGoing"
+            layout="@layout/item_time_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_space"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilNewEntry" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTimeEntries"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:clipToPadding="true"
             android:layout_marginTop="@dimen/view_space"
+            android:clipToPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilNewEntry" />
+            app:layout_constraintTop_toBottomOf="@id/iOnGoing" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
