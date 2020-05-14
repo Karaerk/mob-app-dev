@@ -21,7 +21,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private var auth = Firebase.auth
     private val dateFormats = DateFormatEnum.values()
     private val dateFormatRepository = DateFormatRepository(application.applicationContext)
-    val dateFormatStrings = dateFormats.map { it.format }
+    val dateFormatStrings = dateFormats.map { it.label }
     var dateFormat = dateFormatRepository.getDateFormat(auth.currentUser!!.email!!)
     val signOut = MutableLiveData(false)
     val deleteAccount = MutableLiveData(false)

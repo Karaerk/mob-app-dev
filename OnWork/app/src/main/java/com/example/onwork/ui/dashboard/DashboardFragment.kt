@@ -19,8 +19,8 @@ class DashboardFragment : Fragment() {
     private val timeEntryAdapter =
         TimeEntryAdapter(
             arrayListOf(
-                TimeEntry("test"),
-                TimeEntry("test")
+                TimeEntry("test", "test@test.com"),
+                TimeEntry("test", "test@test.com")
             )
         ) { timeEntry: TimeEntry ->
             timeEntryClicked(
@@ -65,6 +65,8 @@ class DashboardFragment : Fragment() {
         fabEntry.setOnClickListener {
             fabEntry.setImageDrawable(activityContext.getDrawable(R.drawable.ic_stop_white_24dp))
             iOnGoing.visibility = View.VISIBLE
+            tvTitle.text = etNewEntry.text
+            etNewEntry.text?.clear()
         }
     }
 
