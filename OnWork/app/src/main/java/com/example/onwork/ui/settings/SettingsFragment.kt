@@ -114,7 +114,7 @@ class SettingsFragment : Fragment() {
      */
     private fun initDateFormat(dateFormat: DateFormat?) {
         if (dateFormat != null)
-            etDateFormat.setText(dateFormat.value.format, false)
+            etDateFormat.setText(dateFormat.value.label, false)
     }
 
     /**

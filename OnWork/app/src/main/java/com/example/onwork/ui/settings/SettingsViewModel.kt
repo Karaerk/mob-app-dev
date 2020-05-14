@@ -29,7 +29,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     val errorDateFormat = MutableLiveData(false)
 
     companion object {
-        val TAG = "SettingsViewModel"
+        private val TAG = SettingsViewModel::class.simpleName
     }
 
     init {
@@ -42,7 +42,6 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
      */
     fun signOut() {
         auth.signOut()
-        println(auth.currentUser)
         signOut.value = true
     }
 
@@ -54,11 +53,11 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(SignInViewModel.TAG, "deleteAccount:success")
+                    Log.d(TAG, "deleteAccount:success")
                     deleteAccount.value = true
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(SignInViewModel.TAG, "deleteAccount:failure", task.exception)
+                    Log.w(TAG, "deleteAccount:failure", task.exception)
                     errorDelete.value = true
                 }
             }
@@ -85,9 +84,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     /**
      * Insert a date format used by the user.
      */
-    fun insertDateFormat() {
+    private fun insertDateFormat() {
         val newDateFormat = DateFormat(
-            DateFormatEnum.values()[0],
+            dateFormats[0],
             Date(),
             auth.currentUser!!.email!!
         )
