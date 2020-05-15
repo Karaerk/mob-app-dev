@@ -3,12 +3,12 @@ package com.example.onwork.ui.settings
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.onwork.database.DateFormatRepository
 import com.example.onwork.model.DateFormat
 import com.example.onwork.model.DateFormatEnum
-import com.example.onwork.ui.account.signin.SignInViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
@@ -30,11 +30,6 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     companion object {
         private val TAG = SettingsViewModel::class.simpleName
-    }
-
-    init {
-        if(dateFormat.value == null)
-            insertDateFormat()
     }
 
     /**
@@ -73,6 +68,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             dateFormats[0]
         }
         updatedDateFormat.lastUpdated = Date()
+        updatedDateFormat.id = dateFormat.value?.id
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -84,17 +80,17 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     /**
      * Insert a date format used by the user.
      */
-    private fun insertDateFormat() {
-        val newDateFormat = DateFormat(
-            dateFormats[0],
-            Date(),
-            auth.currentUser!!.email!!
-        )
-
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                dateFormatRepository.insertDateFormat(newDateFormat)
-            }
-        }
-    }
+//    private fun insertDateFormat() {
+//        val newDateFormat = DateFormat(
+//            dateFormats[0],
+//            Date(),
+//            auth.currentUser!!.email!!
+//        )
+//
+//        viewModelScope.launch {
+//            withContext(Dispatchers.IO) {
+//                dateFormatRepository.insertDateFormat(newDateFormat)
+//            }
+//        }
+//    }
 }

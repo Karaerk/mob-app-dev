@@ -13,8 +13,8 @@ interface DateFormatDao {
     @Insert
     suspend fun insertDateFormat(dateFormat: DateFormat)
 
-    @Query("SELECT * FROM DateFormat WHERE userEmail = :userEmail")
-    fun getDateFormat(userEmail: String): LiveData<DateFormat?>
+    @Query("SELECT * FROM DateFormat WHERE userEmail = :userEmail LIMIT 1")
+    fun getDateFormat(userEmail: String): LiveData<DateFormat>
 
     @Update
     suspend fun updateDateFormat(dateFormat: DateFormat)

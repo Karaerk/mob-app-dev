@@ -5,9 +5,8 @@ import java.util.*
 data class TimeEntryResult (
     val title: String,
     val userEmail: String,
-    var date: Date,
+    var date: String,
     var duration: String,
-    var startTime: Date,
-    var endTime: Date,
-    var id: Long
+    var startTime: String,
+    var endTime: String
 )

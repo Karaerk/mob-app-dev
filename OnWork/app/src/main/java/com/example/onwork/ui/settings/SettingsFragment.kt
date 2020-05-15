@@ -54,7 +54,7 @@ class SettingsFragment : Fragment() {
     private fun initViewModel() {
         settingsViewModel.deleteAccount.observeNonNull(viewLifecycleOwner, this::initDeleteAccount)
         settingsViewModel.signOut.observeNonNull(viewLifecycleOwner, this::initSignOut)
-        settingsViewModel.dateFormat.observeNull(viewLifecycleOwner, this::initDateFormat)
+        settingsViewModel.dateFormat.observeNonNull(viewLifecycleOwner, this::initDateFormat)
         settingsViewModel.errorDelete.observeNonNull(viewLifecycleOwner, this::initErrorDelete)
         settingsViewModel.errorDateFormat.observeNonNull(
             viewLifecycleOwner,

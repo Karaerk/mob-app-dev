@@ -8,31 +8,25 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onwork.R
+import com.example.onwork.model.DateFormat
 import com.example.onwork.model.TimeEntry
+import com.wearetriple.tripleonboarding.extension.observeNonNull
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.item_dialog.*
 import kotlinx.android.synthetic.main.item_time_entry.*
-import kotlinx.android.synthetic.main.item_time_entry.tvDate
-import kotlinx.android.synthetic.main.item_time_entry.tvTitle
+import java.time.LocalDate
+import java.util.*
 
 
 class DashboardFragment : Fragment() {
 
     private lateinit var activityContext: AppCompatActivity
-    private val timeEntryAdapter =
-        TimeEntryAdapter(
-            arrayListOf(
-                TimeEntry("test", "test@test.com"),
-                TimeEntry("test", "test@test.com")
-            )
-        ) { timeEntry: TimeEntry ->
-            timeEntryClicked(
-                timeEntry
-            )
-        }
+    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var timeEntryAdapter: TimeEntryAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +39,7 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         setHasOptionsMenu(true)
     }
 
@@ -55,12 +50,43 @@ class DashboardFragment : Fragment() {
         activityContext.supportActionBar?.show()
 
         initViews()
+        initViewModel()
     }
 
     /**
      * Prepares all the views inside this fragment.
      */
     private fun initViews() {
+        //TODO: remove this test data
+        val cal = Calendar.getInstance()
+        cal[Calendar.MINUTE] = 149
+        cal[Calendar.SECOND] = 32
+        val endTime = cal.time
+        cal[Calendar.MINUTE] = 100
+        val endTimeTwo = cal.time
+        timeEntryAdapter = TimeEntryAdapter(
+            arrayListOf(
+                TimeEntry(
+                    "test",
+                    "test@test.com",
+                    Date(),
+                    endTime
+                ),
+                TimeEntry(
+                    "test 2",
+                    "test@test.com",
+                    Date(),
+                    endTimeTwo
+                )
+            ),
+            { timeEntry: TimeEntry ->
+                timeEntryClicked(
+                    timeEntry
+                )
+            },
+            dashboardViewModel.getDateFormat()
+        )
+
         rvTimeEntries.layoutManager =
             LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
         rvTimeEntries.adapter = timeEntryAdapter
@@ -77,31 +103,45 @@ class DashboardFragment : Fragment() {
     }
 
     /**
+     * Prepares the data needed for this fragment.
+     */
+    private fun initViewModel() {
+        dashboardViewModel.dateFormat.observeNonNull(viewLifecycleOwner, this::initDateFormat)
+    }
+
+    /**
+     * Prepares to have the user's preferred date format used as the selected option.
+     */
+    private fun initDateFormat(dateFormat: DateFormat) {
+        timeEntryAdapter.dateFormat = dateFormat
+        timeEntryAdapter.notifyDataSetChanged()
+    }
+
+    /**
      * Opens up a pop-up with details included about the clicked time entry.
      */
     private fun timeEntryClicked(timeEntry: TimeEntry) {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(activityContext)
-        builder.setTitle(timeEntry.title)
+        val timeEntryResult = dashboardViewModel.getTimeEntryResult(timeEntry)
         val viewInflated: View = LayoutInflater.from(activityContext)
             .inflate(R.layout.item_dialog, view as ViewGroup?, false)
-//        val input = viewInflated.findViewById(R.id.input) as EditText
-        builder.setView(viewInflated)
-        viewInflated.findViewById<TextView>(R.id.tvItemDate).text = "test 1"
-        viewInflated.findViewById<TextView>(R.id.tvItemDuration).text = "test 2"
-        viewInflated.findViewById<EditText>(R.id.etStartTime).setText("12:34")
-        viewInflated.findViewById<EditText>(R.id.etEndTime).setText("56:78")
+        viewInflated.findViewById<TextView>(R.id.tvItemDate).text = timeEntryResult.date
+        viewInflated.findViewById<TextView>(R.id.tvItemDuration).text = timeEntryResult.duration
+        viewInflated.findViewById<EditText>(R.id.etStartTime).setText(timeEntryResult.startTime)
+        viewInflated.findViewById<EditText>(R.id.etEndTime).setText(timeEntryResult.endTime)
 
-        builder.setPositiveButton(
-            R.string.action_save
-        ) { dialog, _ ->
-            dialog.dismiss()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activityContext)
+        builder.setTitle(timeEntry.title)
+            .setView(viewInflated)
+            .setPositiveButton(
+                R.string.action_save
+            ) { dialog, _ ->
+                dialog.dismiss()
 
-        }
-        builder.setNegativeButton(
-            R.string.action_cancel
-        ) { dialog, _ -> dialog.cancel() }
-
-        builder.show()
+            }
+            .setNegativeButton(
+                R.string.action_cancel
+            ) { dialog, _ -> dialog.cancel() }
+            .show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

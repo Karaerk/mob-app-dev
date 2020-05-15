@@ -16,7 +16,7 @@ class DateFormatRepository(context: Context) {
     suspend fun insertDateFormat(dateFormat: DateFormat) =
         dateFormatDao.insertDateFormat(dateFormat)
 
-    fun getDateFormat(userEmail: String): LiveData<DateFormat?> =
+    fun getDateFormat(userEmail: String): LiveData<DateFormat> =
         dateFormatDao.getDateFormat(userEmail)
 
     suspend fun updateDateFormat(dateFormat: DateFormat) =
