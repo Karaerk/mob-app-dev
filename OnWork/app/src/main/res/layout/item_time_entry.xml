@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvEntry"
         style="@style/AppTheme.Widget.CardView.ItemView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

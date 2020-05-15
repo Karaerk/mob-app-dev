@@ -2,16 +2,22 @@ package com.example.onwork.ui.dashboard
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
-import android.widget.Button
+import android.view.LayoutInflater
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onwork.R
 import com.example.onwork.model.TimeEntry
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.item_dialog.*
 import kotlinx.android.synthetic.main.item_time_entry.*
+import kotlinx.android.synthetic.main.item_time_entry.tvDate
+import kotlinx.android.synthetic.main.item_time_entry.tvTitle
+
 
 class DashboardFragment : Fragment() {
 
@@ -74,7 +80,28 @@ class DashboardFragment : Fragment() {
      * Opens up a pop-up with details included about the clicked time entry.
      */
     private fun timeEntryClicked(timeEntry: TimeEntry) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activityContext)
+        builder.setTitle(timeEntry.title)
+        val viewInflated: View = LayoutInflater.from(activityContext)
+            .inflate(R.layout.item_dialog, view as ViewGroup?, false)
+//        val input = viewInflated.findViewById(R.id.input) as EditText
+        builder.setView(viewInflated)
+        viewInflated.findViewById<TextView>(R.id.tvItemDate).text = "test 1"
+        viewInflated.findViewById<TextView>(R.id.tvItemDuration).text = "test 2"
+        viewInflated.findViewById<EditText>(R.id.etStartTime).setText("12:34")
+        viewInflated.findViewById<EditText>(R.id.etEndTime).setText("56:78")
 
+        builder.setPositiveButton(
+            R.string.action_save
+        ) { dialog, _ ->
+            dialog.dismiss()
+
+        }
+        builder.setNegativeButton(
+            R.string.action_cancel
+        ) { dialog, _ -> dialog.cancel() }
+
+        builder.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -21,6 +21,9 @@
     <style name="AppTheme.Layout">
         <item name="android:padding">@dimen/layout_space</item>
     </style>
+    <style name="AppTheme.Layout.Dialog">
+        <item name="android:padding">@dimen/dialog_space</item>
+    </style>
 
     <style name="AppTheme.Widget" />
 

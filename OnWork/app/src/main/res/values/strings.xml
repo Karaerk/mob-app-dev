@@ -18,6 +18,8 @@
     <string name="hint_password">Password</string>
     <string name="hint_new_entry">Working on</string>
     <string name="hint_date_format">Date format</string>
+    <string name="hint_start_time">Start</string>
+    <string name="hint_end_time">End</string>
 
     <string name="button_sign_in">Sign in</string>
     <string name="button_create_account">Create an account</string>
@@ -42,4 +44,6 @@
     <string name="error_input_password">Please fill in your password</string>
 
     <string name="confirm_delete_account">Are you really sure about deleting your account? You can\'t undo this action.</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
 </resources>

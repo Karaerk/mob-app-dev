@@ -8,9 +8,9 @@ import com.example.onwork.model.TimeEntry
 import com.example.onwork.ui.helper.AbstractAdapter
 import kotlinx.android.synthetic.main.item_time_entry.view.*
 
-class TimeEntryAdapter (
-override var items: ArrayList<TimeEntry>,
-override val clickListener: (TimeEntry) -> Unit
+class TimeEntryAdapter(
+    override var items: ArrayList<TimeEntry>,
+    override val clickListener: (TimeEntry) -> Unit
 ) : AbstractAdapter<TimeEntry>(items, clickListener) {
 
     /**
@@ -21,6 +21,7 @@ override val clickListener: (TimeEntry) -> Unit
         override fun bind(item: TimeEntry) {
             itemView.tvTitle.text = item.title
             itemView.setOnClickListener { clickListener(item) }
+            itemView.cvEntry.setOnClickListener { clickListener(item) }
         }
     }
 
