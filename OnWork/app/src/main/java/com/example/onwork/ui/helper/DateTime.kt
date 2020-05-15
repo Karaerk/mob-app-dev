@@ -7,11 +7,33 @@ class DateTime {
     companion object {
         private const val defaultTimePattern = "HH:mm"
 
-        fun getDateFormatted(date: Date, pattern: String = defaultTimePattern): String {
-            return date.let {
+        fun getDateFormatted(
+            date: Date,
+            pattern: String = defaultTimePattern,
+            beautify: Boolean = false
+        ): String {
+            var output = date.let {
                 val simpleDateFormat = SimpleDateFormat(pattern, Locale.US)
                 simpleDateFormat.format(date)
             }
+
+            if (beautify) {
+                val fmt = SimpleDateFormat(pattern, Locale.US)
+
+                if (output == fmt.format(Date())) {
+                    output = "Today"
+                } else {
+                    val cal = Calendar.getInstance()
+                    cal.time = Date()
+                    cal[Calendar.DAY_OF_MONTH] = cal.get(Calendar.DAY_OF_MONTH) - 1
+
+                    if (output == fmt.format(cal.time)) {
+                        output = "Yesterday"
+                    }
+                }
+            }
+
+            return output
         }
 
         fun calculateDifference(startDate: Date, endDate: Date): String {

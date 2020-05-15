@@ -25,7 +25,7 @@ class TimeEntryAdapter(
 
         override fun bind(item: TimeEntry) {
             itemView.tvTitle.text = item.title
-            itemView.tvDate.text = DateTime.getDateFormatted(item.startTime, dateFormat.value.format)
+            itemView.tvDate.text = DateTime.getDateFormatted(item.startTime, dateFormat.value.format, true)
             itemView.tvTime.text =
                 "${getTimeFormatted(item.startTime)} - ${getTimeFormatted(item.endTime!!)}"
             itemView.tvDuration.text = DateTime.calculateDifference(item.startTime, item.endTime!!)
@@ -34,8 +34,9 @@ class TimeEntryAdapter(
         }
 
         private fun getTimeFormatted(time: Date): String {
+            val timePattern = "HH:mm"
             return time.let { _ ->
-                val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.US)
+                val simpleDateFormat = SimpleDateFormat(timePattern, Locale.US)
                 simpleDateFormat.format(time)
             }
         }
