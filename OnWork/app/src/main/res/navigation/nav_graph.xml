@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.onwork.ui.account.signout.SignUpFragment"
+        android:name="com.example.onwork.ui.account.signup.SignUpFragment"
         android:label="string/title_sign_up"
         tools:layout="@layout/fragment_sign_up">
 

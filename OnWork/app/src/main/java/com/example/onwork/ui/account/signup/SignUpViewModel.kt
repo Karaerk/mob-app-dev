@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class SignUpViewModel() : ViewModel() {
+class SignUpViewModel : ViewModel() {
 
     private var auth = Firebase.auth
-    val isSignedIn = MutableLiveData<Boolean>(false)
-    val success = MutableLiveData<Boolean>(false)
-    val error = MutableLiveData<Boolean>(false)
+    val isSignedIn = MutableLiveData(false)
+    val success = MutableLiveData(false)
+    val error = MutableLiveData(false)
 
     init {
         if(auth.currentUser != null){
@@ -20,7 +20,7 @@ class SignUpViewModel() : ViewModel() {
     }
 
     companion object {
-        val TAG = "SignUpViewModel"
+        val TAG = SignUpViewModel::class.simpleName
     }
 
     /**

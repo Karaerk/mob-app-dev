@@ -1,4 +1,4 @@
-package com.wearetriple.tripleonboarding.extension
+package com.example.onwork.extension
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

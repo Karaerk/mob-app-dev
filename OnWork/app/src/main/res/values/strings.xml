@@ -46,4 +46,5 @@
     <string name="confirm_delete_account">Are you really sure about deleting your account? You can\'t undo this action.</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
+    <string name="error_input_new_entry">Please fill in a value before starting the timer</string>
 </resources>

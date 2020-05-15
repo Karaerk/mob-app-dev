@@ -1,4 +1,4 @@
-package com.example.onwork.ui.account.signout
+package com.example.onwork.ui.account.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.onwork.R
-import com.example.onwork.ui.account.signup.SignUpViewModel
-import com.wearetriple.tripleonboarding.extension.observeNonNull
+import com.example.onwork.extension.observeNonNull
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {

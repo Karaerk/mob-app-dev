@@ -10,9 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.onwork.R
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.wearetriple.tripleonboarding.extension.observeNonNull
+import com.example.onwork.extension.observeNonNull
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : Fragment() {

@@ -5,7 +5,7 @@
     style="@style/AppTheme.Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.signout.SignUpFragment">
+    tools:context=".ui.account.signup.SignUpFragment">
 
     <LinearLayout
         android:id="@+id/llMain"

@@ -18,6 +18,9 @@ class TimeEntryAdapter(
     var dateFormat: DateFormat
 ) : AbstractAdapter<TimeEntry>(items, clickListener) {
 
+    lateinit var test: View
+    lateinit var testTwo: TimeEntry
+
     /**
      * Prepares the view before passing it to the RecyclerView.
      */
@@ -25,7 +28,8 @@ class TimeEntryAdapter(
 
         override fun bind(item: TimeEntry) {
             itemView.tvTitle.text = item.title
-            itemView.tvDate.text = DateTime.getDateFormatted(item.startTime, dateFormat.value.format, true)
+            itemView.tvDate.text =
+                DateTime.getDateFormatted(item.startTime, dateFormat.value.format, true)
             itemView.tvTime.text =
                 "${getTimeFormatted(item.startTime)} - ${getTimeFormatted(item.endTime!!)}"
             itemView.tvDuration.text = DateTime.calculateDifference(item.startTime, item.endTime!!)
@@ -35,7 +39,7 @@ class TimeEntryAdapter(
 
         private fun getTimeFormatted(time: Date): String {
             val timePattern = "HH:mm"
-            return time.let { _ ->
+            return time.let {
                 val simpleDateFormat = SimpleDateFormat(timePattern, Locale.US)
                 simpleDateFormat.format(time)
             }

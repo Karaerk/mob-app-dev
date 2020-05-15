@@ -9,13 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.onwork.R
 import com.example.onwork.model.DateFormat
-import com.wearetriple.tripleonboarding.extension.observeNonNull
-import com.wearetriple.tripleonboarding.extension.observeNull
+import com.example.onwork.extension.observeNonNull
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 

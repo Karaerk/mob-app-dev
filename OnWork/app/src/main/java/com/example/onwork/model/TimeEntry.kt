@@ -11,7 +11,7 @@ import java.util.*
 @Entity(tableName = "TimeEntry")
 data class TimeEntry(
     @ColumnInfo(name = "title")
-    val title: String,
+    var title: String,
 
     @ColumnInfo(name = "userEmail")
     val userEmail: String,
