@@ -38,6 +38,7 @@
     <string name="success_delete_account">Your account is successfully deleted</string>
     <string name="success_delete_history">You\'ve successfully deleted all items</string>
     <string name="success_update_time_entry">You\'ve successfully updated %s</string>
+    <string name="success_delete_time_entry">You\'ve successfully deleted %s</string>
 
     <string name="error_sign_in">Authentication failed</string>
     <string name="error_delete_account">User account couldn\'t be deleted. Please try again</string>

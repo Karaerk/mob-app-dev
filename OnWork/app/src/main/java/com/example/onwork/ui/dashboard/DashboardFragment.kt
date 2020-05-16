@@ -399,13 +399,36 @@ class DashboardFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val timeEntry = timeEntries[position]
 
-                //TODO: Display snackbar to undo deletion
-//                Snackbar.make(toolbar, getString(R.string.text_deleted_game), Snackbar.LENGTH_LONG)
-//                    .setAction("Undo", UndoListener()).show()
-
-                dashboardViewModel.deleteTimeEntry(timeEntry)
+                deleteTimeEntry(timeEntry)
             }
         }
         return ItemTouchHelper(callback)
+    }
+
+    /**
+     * Deletes a time entry.
+     */
+    private fun deleteTimeEntry(timeEntry: TimeEntry) {
+        timeEntries.remove(timeEntry)
+        timeEntryAdapter.notifyDataSetChanged()
+
+        val snackbar = Snackbar.make(
+            rvTimeEntries,
+            getString(R.string.success_delete_time_entry, timeEntry.title),
+            Snackbar.LENGTH_LONG
+        )
+            .setAction(getString(R.string.action_undo)) {
+                timeEntries.add(timeEntry)
+                timeEntryAdapter.notifyDataSetChanged()
+            }
+        snackbar.show()
+        snackbar.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                super.onDismissed(transientBottomBar, event)
+                if (event == DISMISS_EVENT_TIMEOUT) {
+                    dashboardViewModel.deleteTimeEntry(timeEntry)
+                }
+            }
+        })
     }
 }
