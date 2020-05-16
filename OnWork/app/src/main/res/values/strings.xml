@@ -36,6 +36,8 @@
     <string name="success_sign_in">Authentication successful</string>
     <string name="success_sign_up">Your account is successfully created</string>
     <string name="success_delete_account">Your account is successfully deleted</string>
+    <string name="success_delete_history">You\'ve successfully deleted all items</string>
+    <string name="success_update_time_entry">You\'ve successfully updated %s</string>
 
     <string name="error_sign_in">Authentication failed</string>
     <string name="error_delete_account">User account couldn\'t be deleted. Please try again</string>
@@ -45,9 +47,10 @@
     <string name="error_input_start_time">Please fill in a proper starting time</string>
     <string name="error_input_end_time">Please fill in a proper ending time</string>
     <string name="error_input_times_not_logic">Starting time should be before ending time</string>
+    <string name="error_input_new_entry">Please fill in a value before starting the timer</string>
 
     <string name="confirm_delete_account">Are you really sure about deleting your account? You can\'t undo this action.</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
-    <string name="error_input_new_entry">Please fill in a value before starting the timer</string>
+    <string name="action_undo">Undo</string>
 </resources>

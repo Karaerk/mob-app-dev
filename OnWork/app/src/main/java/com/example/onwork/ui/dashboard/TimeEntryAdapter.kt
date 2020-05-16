@@ -40,7 +40,7 @@ class TimeEntryAdapter(
         private fun getTimeFormatted(time: Date): String {
             val timePattern = "HH:mm"
             return time.let {
-                val simpleDateFormat = SimpleDateFormat(timePattern, Locale.US)
+                val simpleDateFormat = SimpleDateFormat(timePattern, Locale.ROOT)
                 simpleDateFormat.format(time)
             }
         }

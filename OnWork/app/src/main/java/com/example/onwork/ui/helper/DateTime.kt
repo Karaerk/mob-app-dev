@@ -13,12 +13,12 @@ class DateTime {
             beautify: Boolean = false
         ): String {
             var output = date.let {
-                val simpleDateFormat = SimpleDateFormat(pattern, Locale.US)
+                val simpleDateFormat = SimpleDateFormat(pattern, Locale.ROOT)
                 simpleDateFormat.format(date)
             }
 
             if (beautify) {
-                val fmt = SimpleDateFormat(pattern, Locale.US)
+                val fmt = SimpleDateFormat(pattern, Locale.ROOT)
 
                 if (output == fmt.format(Date())) {
                     output = "Today"

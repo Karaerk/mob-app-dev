@@ -167,14 +167,14 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         val startTimeSplitted = start.split(timeDelimiter)
         val startTime = Calendar.getInstance()
         startTime.time = timeEntry.startTime
-        startTime[Calendar.HOUR] = startTimeSplitted[0].toInt()
+        startTime[Calendar.HOUR_OF_DAY] = startTimeSplitted[0].toInt()
         startTime[Calendar.MINUTE] = startTimeSplitted[1].toInt()
         timeEntry.startTime = startTime.time
 
         val endTimeSplitted = end.split(timeDelimiter)
         val endTime = Calendar.getInstance()
         endTime.time = timeEntry.endTime!!
-        endTime[Calendar.HOUR] = endTimeSplitted[0].toInt()
+        endTime[Calendar.HOUR_OF_DAY] = endTimeSplitted[0].toInt()
         endTime[Calendar.MINUTE] = endTimeSplitted[1].toInt()
         timeEntry.endTime = endTime.time
 

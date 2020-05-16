@@ -20,6 +20,7 @@ import com.example.onwork.extension.observeNonNull
 import com.example.onwork.model.DateFormat
 import com.example.onwork.model.TimeEntry
 import com.example.onwork.ui.helper.DateTime
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.item_time_entry.*
 import java.util.*
@@ -187,7 +188,7 @@ class DashboardFragment : Fragment() {
         val dialog = builder.show()
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            if(isTimeEntryUpdated(etStartTime, etEndTime, timeEntry))
+            if (isTimeEntryUpdated(etStartTime, etEndTime, timeEntry))
                 dialog.dismiss()
         }
 
@@ -271,12 +272,14 @@ class DashboardFragment : Fragment() {
 
         val startTimeSplitted = etStartTime.text.split(timeDelimiter)
         val startTime = Calendar.getInstance()
-        startTime[Calendar.HOUR] = startTimeSplitted[0].toInt()
+        startTime.time = timeEntry.startTime
+        startTime[Calendar.HOUR_OF_DAY] = startTimeSplitted[0].toInt()
         startTime[Calendar.MINUTE] = startTimeSplitted[1].toInt()
 
         val endTimeSplitted = etEndTime.text.split(timeDelimiter)
         val endTime = Calendar.getInstance()
-        endTime[Calendar.HOUR] = endTimeSplitted[0].toInt()
+        endTime.time = timeEntry.endTime!!
+        endTime[Calendar.HOUR_OF_DAY] = endTimeSplitted[0].toInt()
         endTime[Calendar.MINUTE] = endTimeSplitted[1].toInt()
 
         if (!startTime.time.before(endTime.time)) {
@@ -289,11 +292,36 @@ class DashboardFragment : Fragment() {
             etEndTime.error = getString(R.string.error_input_end_time)
             return false
         } else {
-            dashboardViewModel.updateTimeEntry(
-                etStartTime.text.toString(),
-                etEndTime.text.toString(),
-                timeEntry
+            val position = timeEntries.indexOf(timeEntry)
+            val temp = timeEntry.copy()
+
+            timeEntries[position].startTime = startTime.time
+            timeEntries[position].endTime = endTime.time
+            timeEntryAdapter.notifyDataSetChanged()
+
+            val snackbar = Snackbar.make(
+                rvTimeEntries,
+                getString(R.string.success_update_time_entry, timeEntry.title),
+                Snackbar.LENGTH_LONG
             )
+                .setAction(getString(R.string.action_undo)) {
+                    timeEntries[position].startTime = temp.startTime
+                    timeEntries[position].endTime = temp.endTime
+                    timeEntryAdapter.notifyDataSetChanged()
+                }
+            snackbar.show()
+            snackbar.addCallback(object : Snackbar.Callback() {
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    super.onDismissed(transientBottomBar, event)
+                    if (event == DISMISS_EVENT_TIMEOUT) {
+                        dashboardViewModel.updateTimeEntry(
+                            etStartTime.text.toString(),
+                            etEndTime.text.toString(),
+                            timeEntry
+                        )
+                    }
+                }
+            })
             return true
         }
     }
@@ -302,7 +330,30 @@ class DashboardFragment : Fragment() {
      * Deletes the whole history of the user.
      */
     private fun deleteHistory() {
-        dashboardViewModel.deleteAllTimeEntries()
+        val temp = timeEntries.toList()
+        timeEntryAdapter.items.clear()
+        timeEntryAdapter.notifyDataSetChanged()
+
+        val snackbar = Snackbar.make(
+            rvTimeEntries,
+            getString(R.string.success_delete_history),
+            Snackbar.LENGTH_LONG
+        )
+            .setAction(getString(R.string.action_undo)) { _ ->
+                timeEntryAdapter.items.addAll(temp)
+                timeEntryAdapter.notifyDataSetChanged()
+            }
+        snackbar.show()
+        snackbar.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                super.onDismissed(transientBottomBar, event)
+                if (event == DISMISS_EVENT_TIMEOUT) {
+                    dashboardViewModel.deleteAllTimeEntries()
+                }
+            }
+        })
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
