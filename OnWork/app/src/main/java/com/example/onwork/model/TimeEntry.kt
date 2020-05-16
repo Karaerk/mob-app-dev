@@ -25,4 +25,9 @@ data class TimeEntry(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null
-) : Parcelable
+) : Parcelable, Comparable<TimeEntry> {
+    override fun compareTo(other: TimeEntry) = compareValuesBy(other, this,
+        { it.startTime },
+        { it.startTime }
+    )
+}

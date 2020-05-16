@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onwork.R
+import com.example.onwork.extension.observeNonNull
 import com.example.onwork.model.DateFormat
 import com.example.onwork.model.TimeEntry
 import com.example.onwork.ui.helper.DateTime
-import com.example.onwork.extension.observeNonNull
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.item_time_entry.*
-import java.util.*
 
 
 class DashboardFragment : Fragment() {
@@ -58,13 +57,6 @@ class DashboardFragment : Fragment() {
      * Prepares all the views inside this fragment.
      */
     private fun initViews() {
-        //TODO: remove this test data
-        val cal = Calendar.getInstance()
-        cal[Calendar.MINUTE] = 149
-        cal[Calendar.SECOND] = 32
-        val endTime = cal.time
-        cal[Calendar.MINUTE] = 100
-        val endTimeTwo = cal.time
         timeEntryAdapter = TimeEntryAdapter(
             timeEntries,
             { timeEntry: TimeEntry ->
@@ -114,6 +106,7 @@ class DashboardFragment : Fragment() {
     private fun initTimeEntries(timeEntries: List<TimeEntry>) {
         this.timeEntries.clear()
         this.timeEntries.addAll(timeEntries)
+        this.timeEntries.sort()
         timeEntryAdapter.notifyDataSetChanged()
     }
 
