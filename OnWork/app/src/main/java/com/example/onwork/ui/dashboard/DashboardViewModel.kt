@@ -157,4 +157,31 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
             }
         }
     }
+
+    /**
+     * Updates the given time entry's starting and ending time.
+     */
+    fun updateTimeEntry(start: String, end: String, timeEntry: TimeEntry) {
+        val timeDelimiter = ":"
+
+        val startTimeSplitted = start.split(timeDelimiter)
+        val startTime = Calendar.getInstance()
+        startTime.time = timeEntry.startTime
+        startTime[Calendar.HOUR] = startTimeSplitted[0].toInt()
+        startTime[Calendar.MINUTE] = startTimeSplitted[1].toInt()
+        timeEntry.startTime = startTime.time
+
+        val endTimeSplitted = end.split(timeDelimiter)
+        val endTime = Calendar.getInstance()
+        endTime.time = timeEntry.endTime!!
+        endTime[Calendar.HOUR] = endTimeSplitted[0].toInt()
+        endTime[Calendar.MINUTE] = endTimeSplitted[1].toInt()
+        timeEntry.endTime = endTime.time
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                timeEntryRepository.updateTimeEntry(timeEntry)
+            }
+        }
+    }
 }

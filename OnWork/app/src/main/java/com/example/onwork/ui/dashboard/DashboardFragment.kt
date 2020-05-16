@@ -1,10 +1,13 @@
 package com.example.onwork.ui.dashboard
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -19,6 +22,7 @@ import com.example.onwork.model.TimeEntry
 import com.example.onwork.ui.helper.DateTime
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.item_time_entry.*
+import java.util.*
 
 
 class DashboardFragment : Fragment() {
@@ -165,22 +169,133 @@ class DashboardFragment : Fragment() {
 
         viewInflated.findViewById<TextView>(R.id.tvItemDate).text = timeEntryResult.date
         viewInflated.findViewById<TextView>(R.id.tvItemDuration).text = timeEntryResult.duration
-        viewInflated.findViewById<EditText>(R.id.etStartTime).setText(timeEntryResult.startTime)
-        viewInflated.findViewById<EditText>(R.id.etEndTime).setText(timeEntryResult.endTime)
+        val etStartTime = viewInflated.findViewById<EditText>(R.id.etStartTime)
+        val etEndTime = viewInflated.findViewById<EditText>(R.id.etEndTime)
+        etStartTime.setText(timeEntryResult.startTime)
+        etEndTime.setText(timeEntryResult.endTime)
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(activityContext)
         builder.setTitle(timeEntry.title)
             .setView(viewInflated)
             .setPositiveButton(
                 R.string.action_save
-            ) { dialog, _ ->
-                dialog.dismiss()
-
-            }
+            ) { _, _ -> }
             .setNegativeButton(
                 R.string.action_cancel
             ) { dialog, _ -> dialog.cancel() }
-            .show()
+            .create()
+        val dialog = builder.show()
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            if(isTimeEntryUpdated(etStartTime, etEndTime, timeEntry))
+                dialog.dismiss()
+        }
+
+        etStartTime.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable) {
+                if (isValidTimeInput(p0)) {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = true
+                } else {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+                    etStartTime.error = getString(R.string.error_input_start_time)
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
+        etEndTime.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable) {
+                if (isValidTimeInput(p0)) {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = true
+                } else {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+                    etEndTime.error = getString(R.string.error_input_end_time)
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+    }
+
+    /**
+     * Validates the user input for a time.
+     */
+    private fun isValidTimeInput(input: Editable): Boolean {
+        val timeDelimiter = ":"
+        val minTimeLength = 3
+        val maxTimeLength = 5
+        val delimiterSides = 2
+        val maxHour = 23
+        val minHour = 0
+        val maxMinute = 59
+        val minMinute = 0
+
+        if (input.isBlank() || input.length < minTimeLength || !input.contains(timeDelimiter)) {
+            return false
+        } else if (input.contains(timeDelimiter)) {
+            val timeSplitted = input.split(timeDelimiter)
+
+            if (timeSplitted.size != delimiterSides || timeSplitted[0].isEmpty() || timeSplitted[1].isEmpty())
+                return false
+
+            val hour = timeSplitted[0].toInt()
+            val minute = timeSplitted[1].toInt()
+
+            if (hour < minHour || hour > maxHour)
+                return false
+
+            if (minute < minMinute || minute > maxMinute)
+                return false
+
+            if (input.length > maxTimeLength)
+                return false
+        }
+
+        return true
+    }
+
+    /**
+     * Attempts to update the time entry's starting and ending time.
+     */
+    private fun isTimeEntryUpdated(
+        etStartTime: EditText,
+        etEndTime: EditText,
+        timeEntry: TimeEntry
+    ): Boolean {
+        val timeDelimiter = ":"
+
+        val startTimeSplitted = etStartTime.text.split(timeDelimiter)
+        val startTime = Calendar.getInstance()
+        startTime[Calendar.HOUR] = startTimeSplitted[0].toInt()
+        startTime[Calendar.MINUTE] = startTimeSplitted[1].toInt()
+
+        val endTimeSplitted = etEndTime.text.split(timeDelimiter)
+        val endTime = Calendar.getInstance()
+        endTime[Calendar.HOUR] = endTimeSplitted[0].toInt()
+        endTime[Calendar.MINUTE] = endTimeSplitted[1].toInt()
+
+        if (!startTime.time.before(endTime.time)) {
+            Toast.makeText(
+                activityContext,
+                getString(R.string.error_input_times_not_logic),
+                Toast.LENGTH_LONG
+            ).show()
+            etStartTime.error = getString(R.string.error_input_start_time)
+            etEndTime.error = getString(R.string.error_input_end_time)
+            return false
+        } else {
+            dashboardViewModel.updateTimeEntry(
+                etStartTime.text.toString(),
+                etEndTime.text.toString(),
+                timeEntry
+            )
+            return true
+        }
     }
 
     /**
