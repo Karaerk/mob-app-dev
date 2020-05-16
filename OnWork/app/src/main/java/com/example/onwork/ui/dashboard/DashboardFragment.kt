@@ -1,5 +1,6 @@
 package com.example.onwork.ui.dashboard
 
+import android.content.*
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,10 +21,13 @@ import com.example.onwork.R
 import com.example.onwork.extension.observeNonNull
 import com.example.onwork.model.DateFormat
 import com.example.onwork.model.TimeEntry
+import com.example.onwork.ui.helper.CountUpService
 import com.example.onwork.ui.helper.DateTime
+import com.example.onwork.ui.helper.PrefManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.item_time_entry.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -32,6 +37,12 @@ class DashboardFragment : Fragment() {
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var timeEntryAdapter: TimeEntryAdapter
     private val timeEntries = arrayListOf<TimeEntry>()
+
+    lateinit var calendar: Calendar
+    lateinit var simpleDateFormat: SimpleDateFormat
+    lateinit var dateTime: String
+    lateinit var mPref: SharedPreferences
+    lateinit var prefManager: PrefManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +64,8 @@ class DashboardFragment : Fragment() {
 
         activityContext = (activity as AppCompatActivity)
         activityContext.supportActionBar?.show()
+        mPref = PreferenceManager.getDefaultSharedPreferences(activityContext)
+        prefManager = PrefManager(activityContext)
 
         initViews()
         initViewModel()
@@ -76,8 +89,6 @@ class DashboardFragment : Fragment() {
             LinearLayoutManager(activityContext, RecyclerView.VERTICAL, false)
         rvTimeEntries.adapter = timeEntryAdapter
         createItemTouchHelper().attachToRecyclerView(rvTimeEntries)
-
-        tvDate.text = getString(R.string.title_on_going)
 
         fabEntry.setOnClickListener {
             if (etNewEntry.text!!.isBlank() && etNewEntry.isEnabled)
@@ -131,10 +142,37 @@ class DashboardFragment : Fragment() {
             fabEntry.setImageDrawable(activityContext.getDrawable(R.drawable.ic_stop_white_24dp))
             iOnGoing.visibility = View.VISIBLE
             etNewEntry.isEnabled = false
+
+            calendar = Calendar.getInstance()
+            calendar.time = timeEntry.startTime
+
+            simpleDateFormat =
+                SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH)
+            dateTime = simpleDateFormat.format(calendar.time)
+
+            mPref.edit().putString("timeAwal", dateTime).apply()
+            prefManager.saveString("pengisian_filling1_timeAwal", dateTime)
+
+
+            val intentService = Intent(activityContext, CountUpService::class.java)
+            activityContext.startService(intentService)
+
         } else {
             fabEntry.setImageDrawable(activityContext.getDrawable(R.drawable.ic_play_arrow_white_24dp))
             iOnGoing.visibility = View.GONE
             etNewEntry.isEnabled = true
+
+            calendar = Calendar.getInstance()
+            simpleDateFormat =
+                SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH)
+            dateTime = simpleDateFormat.format(calendar.getTime())
+            prefManager.saveString("pengisian_filling1_timeAkhir", dateTime)
+            tvDuration.setText(mPref.getString("timeAkhir", ""))
+
+            val intent = Intent(activityContext, CountUpService::class.java)
+            activityContext.stopService(intent)
+
+            mPref.edit().clear().apply()
         }
     }
 
@@ -221,6 +259,30 @@ class DashboardFragment : Fragment() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+    }
+
+
+    private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val str_time = intent.getStringExtra("time")
+            tvDuration.text = str_time
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activityContext.registerReceiver(
+            broadcastReceiver,
+            IntentFilter(CountUpService.str_receiver)
+        )
+    }
+
+    override fun onPause() {
+
+        //String str_time = inte.getStringExtra("time");
+        //tv_timer.setText(str_time);
+        super.onPause()
+        activityContext.unregisterReceiver(broadcastReceiver)
     }
 
     /**
