@@ -52,6 +52,16 @@ open class EntityRepository {
     }
 
     /**
+     * Updates user's time entry.
+     */
+    suspend inline fun updateItemFromTimeEntry(
+        current: TimeEntryFirebase,
+        new: TimeEntryFirebase
+    ) {
+        repository.updateItemFromTimeEntry(current, new)
+    }
+
+    /**
      * Deletes user's all time entries.
      */
     suspend inline fun deleteAllFromTimeEntry(

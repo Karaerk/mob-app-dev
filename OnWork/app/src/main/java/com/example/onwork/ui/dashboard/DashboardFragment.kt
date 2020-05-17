@@ -379,6 +379,7 @@ class DashboardFragment : Fragment() {
                         dashboardViewModel.updateTimeEntry(
                             etStartTime.text.toString(),
                             etEndTime.text.toString(),
+                            temp,
                             timeEntry
                         )
                     }

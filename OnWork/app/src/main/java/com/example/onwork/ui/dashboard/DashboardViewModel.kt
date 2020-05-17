@@ -203,8 +203,9 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     /**
      * Updates the given time entry's starting and ending time.
      */
-    fun updateTimeEntry(start: String, end: String, timeEntry: TimeEntry) {
+    fun updateTimeEntry(start: String, end: String, old: TimeEntry, timeEntry: TimeEntry) {
         val timeDelimiter = ":"
+        val current = prepareTimeEntryForRemote(old)
 
         val startTimeSplitted = start.split(timeDelimiter)
         val startTime = Calendar.getInstance()
@@ -220,9 +221,12 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         endTime[Calendar.MINUTE] = endTimeSplitted[1].toInt()
         timeEntry.endTime = endTime.time
 
+        val new = prepareTimeEntryForRemote(timeEntry)
+
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 timeEntryRepository.updateTimeEntry(timeEntry)
+                repository.updateItemFromTimeEntry(current, new)
             }
         }
     }
