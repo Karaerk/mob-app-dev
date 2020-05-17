@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.onwork.database.firebase.EntityRepository
 import com.example.onwork.database.room.DateFormatRepository
+import com.example.onwork.database.room.TimeEntryRepository
 import com.example.onwork.model.DateFormat
 import com.example.onwork.model.DateFormatEnum
 import com.google.firebase.auth.ktx.auth
@@ -21,6 +22,8 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     private val repository = EntityRepository()
     private val dateFormatRepository =
         DateFormatRepository(application.applicationContext)
+    private val timeEntryRepository =
+        TimeEntryRepository(application.applicationContext)
     val isSignedIn = MutableLiveData(false)
     val success = MutableLiveData(false)
     val error = MutableLiveData(false)
@@ -49,6 +52,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                     success.value = true
 
                     getDateFormatFromRemote()
+//                    getTimeEntriesFromRemote()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "attemptSignIn:failure", task.exception)
@@ -67,7 +71,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                 val dateFormat = repository.getItemFromDateFormat(auth.currentUser!!.email!!)
 
                 // Save remotely stored data locally
-                if(dateFormat != null) {
+                if (dateFormat != null) {
                     val newDateFormat = DateFormat(
                         DateFormatEnum.values()[dateFormat.value!!.value],
                         dateFormat.value!!.userEmail
@@ -77,4 +81,33 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
             }
         }
     }
+
+    /**
+     * Gets the user's time entries saved remotely to store it locally.
+     */
+    /*
+    private fun getTimeEntriesFromRemote() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val timeEntries = repository.getAllTimeEntries(auth.currentUser!!.email!!)
+
+                // Save remotely stored data locally
+                if(timeEntries.isNotEmpty()) {
+                    timeEntryRepository.deleteAllTimeEntries(auth.currentUser!!.email!!)
+
+                    timeEntries.forEach {
+                        val timeEntry = TimeEntry(
+                            it.value!!.title,
+                            it.value!!.userEmail,
+                            Date(it.value!!.startTime),
+                            Date(it.value!!.endTime)
+                        )
+                        timeEntryRepository.insertTimeEntry(timeEntry)
+                    }
+                }
+            }
+        }
+    }
+
+     */
 }

@@ -4,12 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.onwork.database.firebase.EntityRepository
 import com.example.onwork.database.room.DateFormatRepository
 import com.example.onwork.database.room.TimeEntryRepository
-import com.example.onwork.model.DateFormat
-import com.example.onwork.model.DateFormatEnum
-import com.example.onwork.model.TimeEntry
-import com.example.onwork.model.TimeEntryResult
+import com.example.onwork.model.*
 import com.example.onwork.ui.helper.DateTime
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -22,6 +20,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     private var auth = Firebase.auth
     private val dateFormats = DateFormatEnum.values()
+    private val repository = EntityRepository()
     private val dateFormatRepository =
         DateFormatRepository(application.applicationContext)
     private val timeEntryRepository =
@@ -133,6 +132,25 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 timeEntryRepository.updateTimeEntry(timeEntry)
+                attemptToInsertRemoteData(timeEntry)
+            }
+        }
+    }
+
+    /**
+     * Attempts to send locally generated data to remote database.
+     */
+    private suspend fun attemptToInsertRemoteData(updatedTimeEntry: TimeEntry) = withContext(Dispatchers.IO) {
+        val timeEntryFirebase = TimeEntryFirebase(
+            updatedTimeEntry.userEmail,
+            updatedTimeEntry.startTime.time,
+            updatedTimeEntry.endTime!!.time,
+            updatedTimeEntry.title
+        )
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.insertItemFromTimeEntry(timeEntryFirebase)
             }
         }
     }

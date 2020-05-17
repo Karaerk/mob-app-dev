@@ -2,6 +2,7 @@ package com.example.onwork.database.firebase
 
 import com.example.onwork.model.DateFormatSnapshot
 import com.example.onwork.model.IdentifiableUser
+import com.example.onwork.model.TimeEntryFirebase
 
 /**
  * Functions as an access point to the database for the application.
@@ -33,9 +34,26 @@ open class EntityRepository {
     }
 
     /**
+     * Updates user's time entry.
+     */
+    suspend inline fun insertItemFromTimeEntry(
+        item: TimeEntryFirebase
+    ) {
+        repository.insertItemFromTimeEntry(item)
+    }
+
+    /**
      * Gets user's date format.
      */
     suspend inline fun getItemFromDateFormat(userEmail: String): DateFormatSnapshot? {
         return repository.getItemFromDateFormat(userEmail)
     }
+
+    /**
+     * Gets user's time entries.
+     */
+//    suspend inline fun getAllTimeEntries(userEmail: String): List<TimeEntrySnapshot> {
+////        return repository.getAllTimeEntries(userEmail)
+//        return null
+//    }
 }

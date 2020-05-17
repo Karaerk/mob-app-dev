@@ -1,10 +1,7 @@
 package com.example.onwork.database.firebase
 
 import android.util.Log
-import com.example.onwork.model.DateFormatEnum
-import com.example.onwork.model.DateFormatFirebase
-import com.example.onwork.model.DateFormatSnapshot
-import com.example.onwork.model.IdentifiableUser
+import com.example.onwork.model.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -185,5 +182,73 @@ class FirebaseRepository {
                     }
                 }
             })
+        }
+
+    /*
+    suspend fun getAllTimeEntries(userEmail: String): List<TimeEntrySnapshot> =
+        suspendCoroutineWrapper { d ->
+            val child = "timeEntry"
+            val ref = FirebaseDatabase.getInstance().getReference(child)
+
+            val itemDb = ref.orderByChild("userEmail").equalTo(userEmail)
+
+            itemDb.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    d.resumeWithException(p0.toException())
+                    Log.e(LOG_TAG, "Error while getting data from $child", p0.toException())
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    try {
+                        val data = ArrayList<TimeEntrySnapshot>()
+                        println(p0)
+                        println(p0.children)
+                        println(p0.value)
+                        println(p0.key)
+
+                        if (p0.children != null) {
+                            val values = p0.children as HashMap<*, *>
+                            values.forEach {
+                                println(it.key)
+                                println(it.value)
+                                println(it)
+                            }
+
+
+                            // Assume the database has more than one entry
+//                            try {
+//                                val values = p0.value as ArrayList<*>
+//                                snapshot.id = values.lastIndex.toString()
+//                            } catch (e: Exception) {
+//                                val value = p0.value as HashMap<*, *>
+//                                snapshot.id = value.entries.iterator().next().key.toString()
+//                            }
+//                            snapshot.key = p0.key!!
+//
+//                            p0.children.forEach {
+//                                snapshot.value = it.getValue(TimeEntryFirebase::class.java)
+//                            }
+
+                            d.resume(data)
+                        } else {
+                            d.resume(data)
+                        }
+                    } catch (e: Exception) {
+                        d.resumeWithException(e)
+                        Log.e(LOG_TAG, e.message, e)
+                    }
+                }
+            })
+        }
+     */
+
+    suspend fun insertItemFromTimeEntry(
+        item: TimeEntryFirebase
+    ): Unit =
+        suspendCoroutineWrapper { d ->
+            val child = "timeEntry"
+            val ref = FirebaseDatabase.getInstance().getReference(child)
+
+            ref.push().setValue(item)
         }
 }
