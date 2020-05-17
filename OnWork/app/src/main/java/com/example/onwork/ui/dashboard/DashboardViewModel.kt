@@ -195,6 +195,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 timeEntryRepository.deleteAllTimeEntries(auth.currentUser!!.email!!)
+                repository.deleteAllFromTimeEntry(auth.currentUser!!.email!!)
             }
         }
     }

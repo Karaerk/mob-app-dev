@@ -284,4 +284,32 @@ class FirebaseRepository {
                 }
             })
         }
+
+    suspend fun deleteAllFromTimeEntry(
+        userEmail: String
+    ): Unit =
+        suspendCoroutineWrapper { d ->
+            val child = "timeEntry"
+            val ref = FirebaseDatabase.getInstance().getReference(child)
+
+            val itemDb = ref.orderByChild("userEmail").equalTo(userEmail)
+
+            itemDb.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    d.resumeWithException(p0.toException())
+                    Log.e(LOG_TAG, "Error while getting data from $child", p0.toException())
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    try {
+                        p0.children.forEach {
+                            ref.child(it.key!!).removeValue()
+                        }
+
+                    } catch (e: Exception) {
+                        Log.e(LOG_TAG, e.message, e)
+                    }
+                }
+            })
+        }
 }
