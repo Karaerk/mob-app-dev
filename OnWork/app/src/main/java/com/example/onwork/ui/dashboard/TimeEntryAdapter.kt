@@ -18,9 +18,6 @@ class TimeEntryAdapter(
     var dateFormat: DateFormat
 ) : AbstractAdapter<TimeEntry>(items, clickListener) {
 
-    lateinit var test: View
-    lateinit var testTwo: TimeEntry
-
     /**
      * Prepares the view before passing it to the RecyclerView.
      */

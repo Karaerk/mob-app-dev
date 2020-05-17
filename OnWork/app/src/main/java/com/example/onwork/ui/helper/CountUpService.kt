@@ -22,7 +22,7 @@ class CountUpService : Service() {
 
     //String str_testing;
     private lateinit var mTimer: Timer
-    lateinit var intent: Intent
+    private lateinit var intent: Intent
 
     @Nullable
     override fun onBind(intent: Intent): IBinder? {
@@ -62,7 +62,7 @@ class CountUpService : Service() {
 
                 simpleDateFormat =
                     SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH)
-                strDate = simpleDateFormat.format(calendar.getTime())
+                strDate = simpleDateFormat.format(calendar.time)
                 Log.e("strDate", strDate)
                 twoDatesBetweenTime()
             }

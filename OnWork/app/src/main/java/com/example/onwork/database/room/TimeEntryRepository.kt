@@ -29,9 +29,6 @@ class TimeEntryRepository(context: Context) {
     suspend fun deleteAllTimeEntries(userEmail: String) =
         timeEntryDao.deleteAllTimeEntries(userEmail)
 
-    suspend fun getTimeEntryById(id: Long, userEmail: String): TimeEntry? =
-        timeEntryDao.getTimeEntryById(id, userEmail)
-
     suspend fun getOnGoingTimeEntry(userEmail: String): TimeEntry? =
         timeEntryDao.getOnGoingTimeEntry(userEmail)
 }

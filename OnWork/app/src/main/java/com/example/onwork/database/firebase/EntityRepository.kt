@@ -1,7 +1,6 @@
 package com.example.onwork.database.firebase
 
 import com.example.onwork.model.DateFormatSnapshot
-import com.example.onwork.model.IdentifiableUser
 import com.example.onwork.model.TimeEntryFirebase
 
 /**
@@ -11,16 +10,6 @@ import com.example.onwork.model.TimeEntryFirebase
 open class EntityRepository {
     companion object {
         val repository = FirebaseRepository()
-    }
-
-    /**
-     * Gets all data from given table name.
-     */
-    suspend inline fun <reified E : IdentifiableUser> getAllFromTable(
-        table: String,
-        userEmail: String
-    ): List<E> {
-        return repository.getAllFromTable(table, userEmail, E::class.java)
     }
 
     /**

@@ -19,12 +19,8 @@ import kotlin.coroutines.resumeWithException
  */
 class FirebaseRepository {
 
-    private val dateFormats = DateFormatEnum.values()
-
     companion object {
         const val LOG_TAG = "FirebaseRepository"
-        const val MISSING_DATA = "data missing"
-        const val INVALID_FORMAT = "invalid data format"
     }
 
     inner class WrappedContinuation<T>(private val c: Continuation<T>) : Continuation<T> {
@@ -45,49 +41,6 @@ class FirebaseRepository {
         suspendCancellableCoroutine { c ->
             val wd = WrappedContinuation(c)
             block(wd)
-        }
-
-    suspend fun <T : IdentifiableUser> getAllFromTable(
-        table: String,
-        userEmail: String,
-        dataType: Class<T>
-    ): List<T> =
-        suspendCoroutineWrapper { d ->
-            val ref = FirebaseDatabase.getInstance().getReference(table)
-
-            ref.addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {
-                    d.resumeWithException(p0.toException())
-                    Log.e(LOG_TAG, "Error while getting data from $table", p0.toException())
-                }
-
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    try {
-                        val data = ArrayList<T>()
-
-                        snapshot.children.forEach {
-                            val item: T? = it.getValue(dataType)
-
-                            if (item != null && item.userEmail == userEmail) {
-                                data.add(item)
-                            }
-                        }
-
-                        if (data.isNotEmpty()) {
-                            d.resume(data)
-                        } else {
-                            val errorMessage = when (snapshot.value) {
-                                null -> MISSING_DATA
-                                else -> INVALID_FORMAT
-                            }
-                            d.resumeWithException(Exception(errorMessage))
-                        }
-                    } catch (e: Exception) {
-                        d.resumeWithException(e)
-                        Log.e(LOG_TAG, e.message, e)
-                    }
-                }
-            })
         }
 
     suspend fun updateItemFromDateFormat(

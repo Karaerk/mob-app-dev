@@ -38,11 +38,11 @@ class DashboardFragment : Fragment() {
     private lateinit var timeEntryAdapter: TimeEntryAdapter
     private val timeEntries = arrayListOf<TimeEntry>()
 
-    lateinit var calendar: Calendar
-    lateinit var simpleDateFormat: SimpleDateFormat
-    lateinit var dateTime: String
-    lateinit var mPref: SharedPreferences
-    lateinit var prefManager: PrefManager
+    private lateinit var calendar: Calendar
+    private lateinit var simpleDateFormat: SimpleDateFormat
+    private lateinit var dateTime: String
+    private lateinit var mPref: SharedPreferences
+    private lateinit var prefManager: PrefManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -165,9 +165,9 @@ class DashboardFragment : Fragment() {
             calendar = Calendar.getInstance()
             simpleDateFormat =
                 SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH)
-            dateTime = simpleDateFormat.format(calendar.getTime())
+            dateTime = simpleDateFormat.format(calendar.time)
             prefManager.saveString("pengisian_filling1_timeAkhir", dateTime)
-            tvDuration.setText(mPref.getString("timeAkhir", ""))
+            tvDuration.text = mPref.getString("timeAkhir", "")
 
             val intent = Intent(activityContext, CountUpService::class.java)
             activityContext.stopService(intent)
@@ -264,8 +264,8 @@ class DashboardFragment : Fragment() {
 
     private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            val str_time = intent.getStringExtra("time")
-            tvDuration.text = str_time
+            val strTime = intent.getStringExtra("time")
+            tvDuration.text = strTime
         }
     }
 
@@ -402,7 +402,7 @@ class DashboardFragment : Fragment() {
             getString(R.string.success_delete_history),
             Snackbar.LENGTH_LONG
         )
-            .setAction(getString(R.string.action_undo)) { _ ->
+            .setAction(getString(R.string.action_undo)) {
                 timeEntryAdapter.items.addAll(temp)
                 timeEntryAdapter.notifyDataSetChanged()
             }

@@ -32,10 +32,6 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     var onGoingTimeEntry = MutableLiveData<TimeEntry>()
     var updateOnGoingTimeEntry = MutableLiveData(false)
 
-    companion object {
-        private val TAG = DashboardViewModel::class.simpleName
-    }
-
     init {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {

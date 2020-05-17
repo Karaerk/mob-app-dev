@@ -21,7 +21,6 @@ import kotlinx.coroutines.withContext
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
     private var auth = Firebase.auth
-    private val activityContext = application
     private val repository = EntityRepository()
     private val dateFormats = DateFormatEnum.values()
     private val dateFormatRepository =
