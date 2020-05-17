@@ -251,4 +251,37 @@ class FirebaseRepository {
 
             ref.push().setValue(item)
         }
+
+    suspend fun deleteItemFromTimeEntry(
+        item: TimeEntryFirebase
+    ): Unit =
+        suspendCoroutineWrapper { d ->
+            val child = "timeEntry"
+            val ref = FirebaseDatabase.getInstance().getReference(child)
+
+            val itemDb = ref.orderByChild("userEmail").equalTo(item.userEmail)
+
+            itemDb.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    d.resumeWithException(p0.toException())
+                    Log.e(LOG_TAG, "Error while getting data from $child", p0.toException())
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    try {
+                        p0.children.forEach {
+                            val timeEntryFirebase = it.getValue(TimeEntryFirebase::class.java)
+
+                            if (timeEntryFirebase != null && timeEntryFirebase.equals(item)) {
+                                val keyToDelete = it.key
+                                ref.child(keyToDelete!!).removeValue()
+                            }
+                        }
+
+                    } catch (e: Exception) {
+                        Log.e(LOG_TAG, e.message, e)
+                    }
+                }
+            })
+        }
 }

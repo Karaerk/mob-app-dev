@@ -138,22 +138,30 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     /**
+     * Prepares given (local) time entry for remote database by converting it to a proper object.
+     */
+    private fun prepareTimeEntryForRemote(timeEntry: TimeEntry): TimeEntryFirebase {
+        return TimeEntryFirebase(
+            timeEntry.userEmail,
+            timeEntry.startTime.time,
+            timeEntry.endTime!!.time,
+            timeEntry.title
+        )
+    }
+
+    /**
      * Attempts to send locally generated data to remote database.
      */
-    private suspend fun attemptToInsertRemoteData(updatedTimeEntry: TimeEntry) = withContext(Dispatchers.IO) {
-        val timeEntryFirebase = TimeEntryFirebase(
-            updatedTimeEntry.userEmail,
-            updatedTimeEntry.startTime.time,
-            updatedTimeEntry.endTime!!.time,
-            updatedTimeEntry.title
-        )
+    private suspend fun attemptToInsertRemoteData(updatedTimeEntry: TimeEntry) =
+        withContext(Dispatchers.IO) {
+            val timeEntryFirebase = prepareTimeEntryForRemote(updatedTimeEntry)
 
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                repository.insertItemFromTimeEntry(timeEntryFirebase)
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    repository.insertItemFromTimeEntry(timeEntryFirebase)
+                }
             }
         }
-    }
 
     /**
      * Deletes a time entry from the user.
@@ -162,6 +170,20 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 timeEntryRepository.deleteTimeEntry(timeEntry)
+                attemptToDeleteFromRemote(timeEntry)
+            }
+        }
+    }
+
+    /**
+     * Attempts to delete given time entry from remote data source.
+     */
+    private fun attemptToDeleteFromRemote(timeEntry: TimeEntry) {
+        val timeEntryFirebase = prepareTimeEntryForRemote(timeEntry)
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.deleteItemFromTimeEntry(timeEntryFirebase)
             }
         }
     }

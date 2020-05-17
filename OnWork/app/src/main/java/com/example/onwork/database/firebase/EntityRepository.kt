@@ -43,6 +43,15 @@ open class EntityRepository {
     }
 
     /**
+     * Deletes user's time entry.
+     */
+    suspend inline fun deleteItemFromTimeEntry(
+        item: TimeEntryFirebase
+    ) {
+        repository.deleteItemFromTimeEntry(item)
+    }
+
+    /**
      * Gets user's date format.
      */
     suspend inline fun getItemFromDateFormat(userEmail: String): DateFormatSnapshot? {
