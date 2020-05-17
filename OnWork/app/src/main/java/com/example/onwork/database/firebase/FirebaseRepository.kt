@@ -140,6 +140,39 @@ class FirebaseRepository {
             })
         }
 
+    suspend fun deleteAllFromDateFormat(
+        userEmail: String
+    ): Unit =
+        suspendCoroutineWrapper { d ->
+            val child = "dateFormat"
+            val ref = FirebaseDatabase.getInstance().getReference(child)
+
+            val itemDb = ref.orderByChild("userEmail").equalTo(userEmail)
+
+            itemDb.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    d.resumeWithException(p0.toException())
+                    Log.e(LOG_TAG, "Error while getting data from $child", p0.toException())
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    try {
+                        p0.children.forEach {
+                            val dateFormatFirebase = it.getValue(DateFormatFirebase::class.java)
+
+                            if (dateFormatFirebase != null) {
+                                val keyToDelete = it.key
+                                ref.child(keyToDelete!!).removeValue()
+                            }
+                        }
+
+                    } catch (e: Exception) {
+                        Log.e(LOG_TAG, e.message, e)
+                    }
+                }
+            })
+        }
+
     suspend fun getItemFromDateFormat(userEmail: String): DateFormatSnapshot? =
         suspendCoroutineWrapper { d ->
             val child = "dateFormat"
@@ -280,6 +313,39 @@ class FirebaseRepository {
                         }
 
                     } catch (e: Exception) {
+                        Log.e(LOG_TAG, e.message, e)
+                    }
+                }
+            })
+        }
+
+    suspend fun getAllTimeEntries(
+        userEmail: String
+    ): List<TimeEntryFirebase> =
+        suspendCoroutineWrapper { d ->
+            val child = "timeEntry"
+            val ref = FirebaseDatabase.getInstance().getReference(child)
+
+            val itemDb = ref.orderByChild("userEmail").equalTo(userEmail)
+
+            itemDb.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    d.resumeWithException(p0.toException())
+                    Log.e(LOG_TAG, "Error while getting data from $child", p0.toException())
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    val data = arrayListOf<TimeEntryFirebase>()
+                    try {
+                        p0.children.forEach {
+                            val timeEntryFirebase = it.getValue(TimeEntryFirebase::class.java)
+                            data.add(timeEntryFirebase!!)
+                        }
+
+                        d.resume(data)
+
+                    } catch (e: Exception) {
+                        d.resume(data)
                         Log.e(LOG_TAG, e.message, e)
                     }
                 }

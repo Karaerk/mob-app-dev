@@ -71,6 +71,15 @@ open class EntityRepository {
     }
 
     /**
+     * Deletes user's date format.
+     */
+    suspend inline fun deleteAllFromDateFormat(
+        userEmail: String
+    ) {
+        repository.deleteAllFromDateFormat(userEmail)
+    }
+
+    /**
      * Gets user's date format.
      */
     suspend inline fun getItemFromDateFormat(userEmail: String): DateFormatSnapshot? {
@@ -80,8 +89,7 @@ open class EntityRepository {
     /**
      * Gets user's time entries.
      */
-//    suspend inline fun getAllTimeEntries(userEmail: String): List<TimeEntrySnapshot> {
-////        return repository.getAllTimeEntries(userEmail)
-//        return null
-//    }
+    suspend inline fun getAllTimeEntries(userEmail: String): List<TimeEntryFirebase> {
+        return repository.getAllTimeEntries(userEmail)
+    }
 }

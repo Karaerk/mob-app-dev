@@ -10,11 +10,13 @@ import com.example.onwork.database.room.DateFormatRepository
 import com.example.onwork.database.room.TimeEntryRepository
 import com.example.onwork.model.DateFormat
 import com.example.onwork.model.DateFormatEnum
+import com.example.onwork.model.TimeEntry
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class SignInViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -52,7 +54,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
                     success.value = true
 
                     getDateFormatFromRemote()
-//                    getTimeEntriesFromRemote()
+                    getTimeEntriesFromRemote()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "attemptSignIn:failure", task.exception)
@@ -85,7 +87,6 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Gets the user's time entries saved remotely to store it locally.
      */
-    /*
     private fun getTimeEntriesFromRemote() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -97,10 +98,10 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 
                     timeEntries.forEach {
                         val timeEntry = TimeEntry(
-                            it.value!!.title,
-                            it.value!!.userEmail,
-                            Date(it.value!!.startTime),
-                            Date(it.value!!.endTime)
+                            it.title,
+                            it.userEmail,
+                            Date(it.startTime),
+                            Date(it.endTime)
                         )
                         timeEntryRepository.insertTimeEntry(timeEntry)
                     }
@@ -108,6 +109,4 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
             }
         }
     }
-
-     */
 }

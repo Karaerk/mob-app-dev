@@ -16,6 +16,9 @@ interface DateFormatDao {
     @Query("SELECT * FROM DateFormat WHERE userEmail = :userEmail LIMIT 1")
     fun getDateFormat(userEmail: String): LiveData<DateFormat>
 
+    @Query("DELETE FROM DateFormat WHERE userEmail = :userEmail")
+    suspend fun deleteAllTimeEntries(userEmail: String)
+
     @Update
     suspend fun updateDateFormat(dateFormat: DateFormat)
 }
