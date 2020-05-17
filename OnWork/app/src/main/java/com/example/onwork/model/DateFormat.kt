@@ -5,21 +5,19 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 @Parcelize
 @Entity(tableName = "DateFormat")
 data class DateFormat(
     @ColumnInfo(name = "value")
-    var value: DateFormatEnum,
+    var value: DateFormatEnum = DateFormatEnum.MM_DD_YYYY_FORWARD_SLASH,
 
-    @ColumnInfo(name = "lastUpdated")
-    var lastUpdated: Date = Date(),
-
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "userEmail")
-    val userEmail: String,
+    override val userEmail: String = ""
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Long? = null
-) : Parcelable
+) : Parcelable, IdentifiableUser {
+    companion object : IdentifiableTable {
+        override fun getDatabaseName() = "dateFormat"
+    }
+}

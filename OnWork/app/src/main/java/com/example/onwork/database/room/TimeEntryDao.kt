@@ -1,4 +1,4 @@
-package com.example.onwork.database
+package com.example.onwork.database.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

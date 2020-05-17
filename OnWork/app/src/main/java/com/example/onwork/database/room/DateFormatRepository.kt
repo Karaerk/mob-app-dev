@@ -1,4 +1,4 @@
-package com.example.onwork.database
+package com.example.onwork.database.room
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -9,7 +9,10 @@ class DateFormatRepository(context: Context) {
     private val dateFormatDao: DateFormatDao
 
     init {
-        val database = DateFormatRoomDatabase.getDatabase(context)
+        val database =
+            DateFormatRoomDatabase.getDatabase(
+                context
+            )
         dateFormatDao = database!!.dateFormatDao()
     }
 

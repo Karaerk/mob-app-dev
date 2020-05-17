@@ -5,20 +5,26 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.onwork.database.DateFormatRepository
+import com.example.onwork.database.firebase.EntityRepository
+import com.example.onwork.database.room.DateFormatRepository
+import com.example.onwork.model.DateFormat
 import com.example.onwork.model.DateFormatEnum
+import com.example.onwork.model.DateFormatFirebase
+import com.example.onwork.model.DateFormatSnapshot
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
     private var auth = Firebase.auth
+    private val activityContext = application
+    private val repository = EntityRepository()
     private val dateFormats = DateFormatEnum.values()
-    private val dateFormatRepository = DateFormatRepository(application.applicationContext)
+    private val dateFormatRepository =
+        DateFormatRepository(application.applicationContext)
     val dateFormatStrings = dateFormats.map { it.label }
     var dateFormat = dateFormatRepository.getDateFormat(auth.currentUser!!.email!!)
     val signOut = MutableLiveData(false)
@@ -65,12 +71,28 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             errorDateFormat.value = true
             dateFormats[0]
         }
-        updatedDateFormat.lastUpdated = Date()
-        updatedDateFormat.id = dateFormat.value?.id
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 dateFormatRepository.updateDateFormat(updatedDateFormat)
+                attemptToUpdateRemoteData(updatedDateFormat)
+            }
+        }
+    }
+
+    /**
+     * Attempts to collect remotely stored data from the user in order to let the user use the app
+     * while being offline.
+     */
+    private suspend fun attemptToUpdateRemoteData(updatedDateFormat: DateFormat) = withContext(Dispatchers.IO) {
+        val dateFormatFirebase = DateFormatFirebase(
+            updatedDateFormat.userEmail,
+            updatedDateFormat.value.ordinal
+        )
+        val item = DateFormatSnapshot(DateFormat.getDatabaseName(), dateFormatFirebase)
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.updateItemFromDateFormat(auth.currentUser!!.email!!, item)
             }
         }
     }

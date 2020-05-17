@@ -14,7 +14,7 @@ data class TimeEntry(
     var title: String,
 
     @ColumnInfo(name = "userEmail")
-    val userEmail: String,
+    override val userEmail: String,
 
     @ColumnInfo(name = "startTime")
     var startTime: Date = Date(),
@@ -25,7 +25,12 @@ data class TimeEntry(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null
-) : Parcelable, Comparable<TimeEntry> {
+) : Parcelable, Comparable<TimeEntry>, IdentifiableUser {
+
+    companion object : IdentifiableTable {
+        override fun getDatabaseName() = "timeEntry"
+    }
+
     override fun compareTo(other: TimeEntry) = compareValuesBy(other, this,
         { it.startTime },
         { it.startTime }

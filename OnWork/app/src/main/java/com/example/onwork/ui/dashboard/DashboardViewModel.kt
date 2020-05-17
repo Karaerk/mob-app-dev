@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.onwork.database.DateFormatRepository
-import com.example.onwork.database.TimeEntryRepository
+import com.example.onwork.database.room.DateFormatRepository
+import com.example.onwork.database.room.TimeEntryRepository
 import com.example.onwork.model.DateFormat
 import com.example.onwork.model.DateFormatEnum
 import com.example.onwork.model.TimeEntry
@@ -22,8 +22,10 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     private var auth = Firebase.auth
     private val dateFormats = DateFormatEnum.values()
-    private val dateFormatRepository = DateFormatRepository(application.applicationContext)
-    private val timeEntryRepository = TimeEntryRepository(application.applicationContext)
+    private val dateFormatRepository =
+        DateFormatRepository(application.applicationContext)
+    private val timeEntryRepository =
+        TimeEntryRepository(application.applicationContext)
     var dateFormat = dateFormatRepository.getDateFormat(auth.currentUser!!.email!!)
 
     private var onGoingId = MutableLiveData<Long>()
@@ -64,7 +66,6 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         return if (dateFormat.value == null) {
             DateFormat(
                 dateFormats[0],
-                date,
                 auth.currentUser!!.email!!
             )
         } else {

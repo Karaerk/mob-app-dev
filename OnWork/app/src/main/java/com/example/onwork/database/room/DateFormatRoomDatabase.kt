@@ -1,4 +1,4 @@
-package com.example.onwork.database
+package com.example.onwork.database.room
 
 import android.content.Context
 import androidx.room.Database
@@ -14,7 +14,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 @Database(entities = [DateFormat::class], version = 1, exportSchema = false)
 @TypeConverters(Converts::class)
@@ -47,7 +46,6 @@ abstract class DateFormatRoomDatabase : RoomDatabase() {
                                             database.dateFormatDao().insertDateFormat(
                                                 DateFormat(
                                                     DateFormatEnum.values()[0],
-                                                    Date(),
                                                     auth.currentUser!!.email!!
                                                 )
                                             )
