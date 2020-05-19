@@ -61,25 +61,6 @@ class MainActivity : AppCompatActivity() {
     private fun deleteHistory() {
         mainActivityViewModel.undoGames.value = mainActivityViewModel.games.value
 
-        //TODO: Display snackbar to undo deletion
-//        Snackbar
-//            .make(toolbar, getString(R.string.text_deleted_backlog), Snackbar.LENGTH_LONG)
-//            .setAction("Undo", UndoListener())
-//            .addCallback(object : Snackbar.Callback() {
-//                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-//                    super.onDismissed(transientBottomBar, event)
-//
-//                    when (event) {
-//                        DISMISS_EVENT_TIMEOUT,
-//                        DISMISS_EVENT_SWIPE,
-//                        DISMISS_EVENT_CONSECUTIVE,
-//                        DISMISS_EVENT_MANUAL -> mainActivityViewModel.deleteAllGames()
-//                        else -> return
-//                    }
-//                }
-//            })
-//            .show()
-
         mainActivityViewModel.deleteAllGames()
     }
 
@@ -126,10 +107,6 @@ class MainActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val game = games[position]
-
-                //TODO: Display snackbar to undo deletion
-//                Snackbar.make(toolbar, getString(R.string.text_deleted_game), Snackbar.LENGTH_LONG)
-//                    .setAction("Undo", UndoListener()).show()
 
                 mainActivityViewModel.deleteGame(game)
             }

@@ -61,4 +61,7 @@ dependencies {
     // ViewModel and LiveData
     def lifecycle_version = "2.1.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    // Fix for @Generated("androidx.room.RoomProcessor") not being found
+    implementation "javax.annotation:jsr250-api:1.0"
 }

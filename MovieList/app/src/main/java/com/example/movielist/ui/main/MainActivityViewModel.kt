@@ -59,6 +59,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun getMovieDetail(movie: Movie) {
         val intent = Intent(context, DetailActivity::class.java)
         intent.putExtra(MOVIE_DETAIL, movie)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
 }
